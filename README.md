@@ -3,7 +3,7 @@
 Web dashboard for **Sentinel**, the self-hostable security monitoring platform.
 Part of the suite: [sentinel-api](https://github.com/MundatiC/sentinel-api) · [sentinel-scanner](https://github.com/MundatiC/sentinel-scanner).
 
-> Status: **step 2 of 5**: design system, app shell, sign-in with silent session refresh and role guards. Data pages, live alerts and admin screens follow.
+> Status: **step 3 of 5**: design system, sign-in, Events explorer and Overview. Alerts + live feed, incidents, scans and admin screens follow.
 
 **Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · TanStack Query · Recharts · Vitest + Testing Library · Playwright (+ axe).
 
@@ -42,6 +42,11 @@ flowchart LR
 - The `?next=` redirect after login is restricted to in-app paths (open-redirect protection).
 - Login errors never say which field was wrong, and the password field is cleared after a failed attempt.
 - Role-aware UI (`RequireRole`, nav) is a courtesy: the API enforces access.
+
+## Pages built so far
+
+- **Events explorer** (`/events`): filters (severity, type, source, IP, text, time range) live in the URL, so every view is shareable and survives reload; **server-side pagination**; a detail panel (`?event=<id>`) with the raw event; invalid IPs are flagged and never sent to the API.
+- **Overview** (`/overview`): KPI cards, hourly events-by-severity chart (empty hours filled with zeros, text summary for screen readers), alerts-by-status donut with a text legend, newest active alerts. All numbers come from the API; there is no placeholder data.
 
 ## End-to-end tests
 
