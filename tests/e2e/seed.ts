@@ -4,7 +4,7 @@ import { ADMIN } from './helpers';
 export const API = process.env.E2E_API_URL ?? 'http://localhost:4030';
 
 /** Log in to the API as the admin and return a bearer token. */
-export async function adminToken(request: APIRequestContext): Promise<string> {
+async function adminToken(request: APIRequestContext): Promise<string> {
   const res = await request.post(`${API}/api/v1/auth/login`, {
     data: { email: ADMIN.email, password: ADMIN.password },
   });

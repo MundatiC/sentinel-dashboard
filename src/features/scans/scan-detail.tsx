@@ -57,7 +57,7 @@ function Finding({ finding }: { finding: ApiFinding }) {
         </p>
         {evidence && (
           <div>
-            <p className="mb-1 font-label-mono text-label-mono uppercase text-outline">Evidence</p>
+            <p className="mb-1 text-label-default text-on-surface-variant">Evidence</p>
             <pre
               tabIndex={0}
               aria-label="Evidence"
@@ -68,16 +68,12 @@ function Finding({ finding }: { finding: ApiFinding }) {
           </div>
         )}
         <div className="rounded-lg bg-surface-container-lowest p-3">
-          <p className="mb-1 font-label-mono text-label-mono uppercase text-primary">
-            Recommended remediation
-          </p>
+          <p className="mb-1 text-label-default text-primary">Recommended remediation</p>
           <p className="whitespace-pre-wrap break-words text-body-default">{finding.remediation}</p>
         </div>
         {finding.references.length > 0 && (
           <div>
-            <p className="mb-1 font-label-mono text-label-mono uppercase text-outline">
-              References
-            </p>
+            <p className="mb-1 text-label-default text-on-surface-variant">References</p>
             <ul className="space-y-1">
               {finding.references.map((r) => (
                 <li key={r}>
@@ -122,15 +118,15 @@ export function ScanDetail({ id }: { id: string }) {
         <h1 className="break-all font-headline-xl text-headline-xl">{scan.target}</h1>
         <dl className="mt-4 grid gap-4 sm:grid-cols-3">
           <div>
-            <dt className="font-label-mono text-label-mono uppercase text-outline">Scanned</dt>
+            <dt className="text-label-default text-on-surface-variant">Scanned</dt>
             <dd className="mt-1">{formatTimestamp(scan.finishedAt)} UTC</dd>
           </div>
           <div>
-            <dt className="font-label-mono text-label-mono uppercase text-outline">Duration</dt>
+            <dt className="text-label-default text-on-surface-variant">Duration</dt>
             <dd className="mt-1">{seconds}s</dd>
           </div>
           <div>
-            <dt className="font-label-mono text-label-mono uppercase text-outline">Scanner</dt>
+            <dt className="text-label-default text-on-surface-variant">Scanner</dt>
             <dd className="mt-1 font-code-default text-code-default">
               sentinel-scanner v{scan.scannerVersion}
             </dd>

@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Topbar } from '@/components/layout/topbar';
 import { useAuth } from '@/features/auth/auth-provider';
@@ -9,6 +11,9 @@ import { LiveProvider } from '@/features/live/live-provider';
 // The signed-in shell. Nothing inside renders until a session exists (see RequireAuth).
 function Shell({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
+  const [navOpen, setNavOpen] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => setNavOpen(false), [pathname]); // close the drawer after navigating
   return (
     <>
       <a
@@ -17,10 +22,10 @@ function Shell({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
-      <Sidebar role={user?.role} />
-      <div className="pl-64">
-        <Topbar />
-        <main id="main" className="px-space-xl pb-space-xl pt-space-md">
+      <Sidebar role={user?.role} open={navOpen} onClose={() => setNavOpen(false)} />
+      <div className="lg:pl-64">
+        <Topbar onMenu={() => setNavOpen(true)} navOpen={navOpen} />
+        <main id="main" className="px-4 pb-space-xl pt-space-md sm:px-space-xl">
           {children}
         </main>
       </div>

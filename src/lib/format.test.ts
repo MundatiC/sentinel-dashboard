@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatNumber, formatTimestamp, relativeTime } from './format';
+import { formatNumber, formatTimestamp, plural, relativeTime } from './format';
 
 describe('format', () => {
   it('formats timestamps in UTC, optionally with milliseconds', () => {
@@ -26,4 +26,10 @@ describe('format', () => {
 
   it('formats numbers with thousands separators', () =>
     expect(formatNumber(482910)).toBe('482,910'));
+
+  it('pluralises counts', () => {
+    expect(plural(1, 'event')).toBe('1 event');
+    expect(plural(0, 'event')).toBe('0 events');
+    expect(plural(1200, 'event')).toBe('1,200 events');
+  });
 });

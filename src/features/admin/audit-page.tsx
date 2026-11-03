@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { useState } from 'react';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
 import { Pagination } from '@/components/data/pagination';
@@ -18,8 +19,6 @@ export function AuditPage() {
     page,
     pageSize,
   });
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
 
   return (
     <>
@@ -30,7 +29,7 @@ export function AuditPage() {
       <div className="mb-4 rounded-xl bg-surface-container-low p-4">
         <label
           htmlFor="audit-action"
-          className="mb-1 block font-label-mono text-label-mono uppercase text-outline"
+          className="mb-1 block text-label-default text-on-surface-variant"
         >
           Action starts with
         </label>
@@ -64,25 +63,13 @@ export function AuditPage() {
               <table className="w-full min-w-[52rem] text-body-dense">
                 <caption className="sr-only">Audit log, newest first</caption>
                 <thead>
-                  <tr className="bg-surface-container-lowest">
-                    <th scope="col" className={th}>
-                      Time (UTC)
-                    </th>
-                    <th scope="col" className={th}>
-                      Action
-                    </th>
-                    <th scope="col" className={th}>
-                      Actor
-                    </th>
-                    <th scope="col" className={th}>
-                      Target
-                    </th>
-                    <th scope="col" className={th}>
-                      IP
-                    </th>
-                    <th scope="col" className={th}>
-                      Details
-                    </th>
+                  <tr className={HEAD_ROW}>
+                    <Th>Time (UTC)</Th>
+                    <Th>Action</Th>
+                    <Th>Actor</Th>
+                    <Th>Target</Th>
+                    <Th>IP</Th>
+                    <Th>Details</Th>
                   </tr>
                 </thead>
                 <tbody>

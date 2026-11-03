@@ -22,3 +22,7 @@ export function relativeTime(iso: string, now = Date.now()): string {
 }
 
 export const formatNumber = (n: number) => new Intl.NumberFormat('en-US').format(n);
+
+/** "1 event", "2 events". */
+export const plural = (n: number, noun: string) =>
+  `${formatNumber(n)} ${noun}${n === 1 ? '' : 's'}`;

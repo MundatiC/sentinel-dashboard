@@ -11,9 +11,9 @@ export function UserMenu() {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="text-right leading-tight">
-        <div className="text-body-dense">{user.email}</div>
-        <div className="font-label-mono text-label-mono uppercase text-primary">{user.role}</div>
+      <div className="text-right leading-tight" title={user.email}>
+        <div className="max-w-40 truncate text-body-dense max-md:sr-only">{user.email}</div>
+        <div className="text-label-default text-primary">{user.role}</div>
       </div>
       <button
         type="button"

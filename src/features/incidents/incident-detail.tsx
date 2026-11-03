@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertTriangle, ArrowLeft, Check, Download, MessageSquare, Repeat } from 'lucide-react';
+import { ArrowLeft, Check, Download } from 'lucide-react';
 import Link from 'next/link';
 import { useState, type FormEvent } from 'react';
 import { ErrorState, Skeleton } from '@/components/data/states';
@@ -39,18 +39,17 @@ export function incidentDuration(
 }
 
 function TimelineItem({ entry }: { entry: TimelineEntry }) {
-  const Icon =
-    entry.kind === 'NOTE' ? MessageSquare : entry.kind === 'ALERT_LINKED' ? AlertTriangle : Repeat;
   const label = { NOTE: 'Note', ALERT_LINKED: 'Alert linked', STATUS_CHANGE: 'Status' }[entry.kind];
   return (
     <li className="relative flex gap-4 pb-6 last:pb-0">
-      <span className="z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-primary">
-        <Icon className="h-4 w-4" aria-hidden />
-      </span>
+      <span
+        aria-hidden
+        className="z-10 mt-5 h-2.5 w-2.5 shrink-0 rounded-full bg-primary ring-4 ring-surface-container-low"
+      />
       <div className="min-w-0 flex-1 rounded-lg bg-surface-container p-4">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2 text-label-default text-on-surface-variant">
           <span>
-            <span className="font-label-mono text-label-mono uppercase text-primary">{label}</span>
+            <span className="text-label-default text-primary">{label}</span>
             {entry.author && <> · {entry.author.email}</>}
           </span>
           <time dateTime={entry.occurredAt} title={formatTimestamp(entry.occurredAt) + ' UTC'}>
@@ -204,7 +203,7 @@ export function IncidentDetailView({ id }: { id: string }) {
                     {done ? <Check className="h-4 w-4" aria-hidden /> : i + 1}
                   </span>
                   <span>
-                    <span className="block font-label-mono text-label-mono uppercase text-outline">
+                    <span className="block text-label-default text-on-surface-variant">
                       Step {i + 1}
                     </span>
                     <span className="text-body-default">{STEP_LABEL[s]}</span>
@@ -221,7 +220,7 @@ export function IncidentDetailView({ id }: { id: string }) {
           <h2 className="mb-4 font-headline-md text-headline-md">Timeline</h2>
           <ol
             aria-label="Incident timeline"
-            className="relative before:absolute before:bottom-2 before:left-[1.1rem] before:top-2 before:w-px before:bg-outline-variant/40"
+            className="relative before:absolute before:bottom-2 before:left-[0.28rem] before:top-2 before:w-px before:bg-outline-variant/40"
           >
             {incident.timeline.map((entry) => (
               <TimelineItem key={entry.id} entry={entry} />

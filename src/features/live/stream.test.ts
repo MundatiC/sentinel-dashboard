@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { json, mockApi, SESSION } from '@/test/http';
 import { tokenStore } from '@/lib/api/client';
 import {
+  coalesce,
   reconnectDelay,
   runAlertStream,
   StreamError,
@@ -158,5 +159,32 @@ describe('runAlertStream', () => {
       connect: connect as never,
     });
     expect(connect).not.toHaveBeenCalled();
+  });
+});
+
+describe('coalesce (a burst of alert messages must cause one refresh)', () => {
+  it('runs once after a burst, and again for the next burst', async () => {
+    vi.useFakeTimers();
+    const fn = vi.fn();
+    const refresh = coalesce(fn, 400);
+    for (let i = 0; i < 50; i++) refresh.call();
+    expect(fn).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(400);
+    expect(fn).toHaveBeenCalledTimes(1);
+    refresh.call();
+    vi.advanceTimersByTime(400);
+    expect(fn).toHaveBeenCalledTimes(2);
+    vi.useRealTimers();
+  });
+
+  it('cancel drops a pending refresh (used when the page unmounts)', () => {
+    vi.useFakeTimers();
+    const fn = vi.fn();
+    const refresh = coalesce(fn, 400);
+    refresh.call();
+    refresh.cancel();
+    vi.advanceTimersByTime(1000);
+    expect(fn).not.toHaveBeenCalled();
+    vi.useRealTimers();
   });
 });

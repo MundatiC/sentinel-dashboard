@@ -50,10 +50,7 @@ function TextField({
   const [local, setLocal] = useTextFilter(value, onCommit);
   return (
     <div className={className}>
-      <label
-        htmlFor={id}
-        className="mb-1 block font-label-mono text-label-mono uppercase text-outline"
-      >
+      <label htmlFor={id} className="mb-1 block text-label-default text-on-surface-variant">
         {label}
       </label>
       <input
@@ -99,10 +96,7 @@ export function FilterBar({
     <section aria-label="Filters" className="mb-4 rounded-xl bg-surface-container-low p-4">
       <div className="mb-3 flex flex-wrap items-end gap-3">
         <div className="relative min-w-60 flex-1">
-          <label
-            htmlFor="ev-q"
-            className="mb-1 block font-label-mono text-label-mono uppercase text-outline"
-          >
+          <label htmlFor="ev-q" className="mb-1 block text-label-default text-on-surface-variant">
             Search messages
           </label>
           <SearchBox value={filters.q} onCommit={(q) => onChange({ q })} />
@@ -138,7 +132,7 @@ export function FilterBar({
         <div>
           <label
             htmlFor="ev-range"
-            className="mb-1 block font-label-mono text-label-mono uppercase text-outline"
+            className="mb-1 block text-label-default text-on-surface-variant"
           >
             Time range
           </label>
@@ -158,10 +152,7 @@ export function FilterBar({
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <span
-          id="sev-label"
-          className="mr-1 font-label-mono text-label-mono uppercase text-outline"
-        >
+        <span id="sev-label" className="mr-1 text-label-default text-on-surface-variant">
           Severity
         </span>
         <div role="group" aria-labelledby="sev-label" className="flex flex-wrap gap-1.5">

@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
@@ -220,8 +221,6 @@ export function RulesPage() {
   const failure = [save.error, del.error].find(Boolean);
   const failureText =
     failure instanceof ApiError ? failure.message : failure ? 'That did not work.' : null;
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
 
   return (
     <>
@@ -258,23 +257,15 @@ export function RulesPage() {
             <table className="w-full min-w-[50rem] text-body-dense">
               <caption className="sr-only">Alert rules</caption>
               <thead>
-                <tr className="bg-surface-container-lowest">
-                  <th scope="col" className={th}>
-                    Rule
-                  </th>
-                  <th scope="col" className={th}>
-                    Condition
-                  </th>
-                  <th scope="col" className={th}>
-                    Severity
-                  </th>
-                  <th scope="col" className={th}>
-                    Enabled
-                  </th>
+                <tr className={HEAD_ROW}>
+                  <Th>Rule</Th>
+                  <Th>Condition</Th>
+                  <Th>Severity</Th>
+                  <Th>Enabled</Th>
                   {admin && (
-                    <th scope="col" className={th}>
+                    <Th>
                       <span className="sr-only">Actions</span>
-                    </th>
+                    </Th>
                   )}
                 </tr>
               </thead>

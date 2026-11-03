@@ -27,9 +27,20 @@ export function EventsBySeverityChart({ points }: { points: ChartPoint[] }) {
           data={points}
           margin={{ top: 8, right: 8, left: -12, bottom: 0 }}
         >
-          <CartesianGrid vertical={false} stroke="#3c4947" strokeOpacity={0.4} />
+          <CartesianGrid
+            vertical={false}
+            stroke="#3c4947"
+            strokeOpacity={0.5}
+            strokeDasharray="3 4"
+          />
           <XAxis dataKey="label" tick={TICK} tickLine={false} axisLine={false} interval={3} />
-          <YAxis tick={TICK} tickLine={false} axisLine={false} allowDecimals={false} />
+          <YAxis
+            tick={TICK}
+            tickLine={false}
+            axisLine={false}
+            allowDecimals={false}
+            tickCount={4}
+          />
           <Tooltip
             cursor={{ fill: '#ffffff10' }}
             contentStyle={{
@@ -84,8 +95,8 @@ export function StatusDonut({ slices, total }: { slices: DonutSlice[]; total: nu
         </PieChart>
       </ResponsiveContainer>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-headline-xl text-headline-xl">{total}</span>
-        <span className="font-label-mono text-label-mono uppercase text-outline">Total</span>
+        <span className="text-[1.5rem] font-semibold leading-none">{total}</span>
+        <span className="text-label-default text-on-surface-variant">Total</span>
       </div>
     </div>
   );

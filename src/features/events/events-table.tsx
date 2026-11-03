@@ -1,3 +1,4 @@
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { SeverityBadge } from '@/components/ui/severity';
 import { cn } from '@/lib/cn';
 import { formatTimestamp } from '@/lib/format';
@@ -17,8 +18,6 @@ export function EventsTable({
   onSelect: (id: string) => void;
   busy?: boolean;
 }) {
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
   return (
     <div
       className={cn('overflow-x-auto transition-opacity', busy && 'opacity-60')}
@@ -29,28 +28,14 @@ export function EventsTable({
           Security events, newest first by default. Select a time to open the event details.
         </caption>
         <thead>
-          <tr className="bg-surface-container-lowest">
-            <th scope="col" className={th}>
-              Time (UTC)
-            </th>
-            <th scope="col" className={th}>
-              Severity
-            </th>
-            <th scope="col" className={th}>
-              Event type
-            </th>
-            <th scope="col" className={th}>
-              Source
-            </th>
-            <th scope="col" className={th}>
-              Actor
-            </th>
-            <th scope="col" className={th}>
-              IP
-            </th>
-            <th scope="col" className={th}>
-              Message
-            </th>
+          <tr className={HEAD_ROW}>
+            <Th>Time (UTC)</Th>
+            <Th>Severity</Th>
+            <Th>Event type</Th>
+            <Th>Source</Th>
+            <Th>Actor</Th>
+            <Th>IP</Th>
+            <Th>Message</Th>
           </tr>
         </thead>
         <tbody>

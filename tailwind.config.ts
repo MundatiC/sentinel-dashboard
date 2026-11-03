@@ -22,7 +22,13 @@ const config: Config = {
       colors: tokens.colors,
       borderRadius: tokens.borderRadius,
       spacing: tokens.spacing,
-      fontSize: tokens.fontSize as unknown as NonNullable<Config['theme']>['fontSize'],
+      // The Stitch scale, with two deliberate bumps: labels 11 -> 12px and small mono data 12 -> 13px, because
+      // data and labels should read at 12-14px (see docs/design.md).
+      fontSize: {
+        ...(tokens.fontSize as unknown as NonNullable<Config['theme']>['fontSize']),
+        'label-mono': ['12px', { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: '500' }],
+        'code-sm': ['13px', { lineHeight: '18px', letterSpacing: '0.01em', fontWeight: '400' }],
+      },
       fontFamily,
     },
   },
