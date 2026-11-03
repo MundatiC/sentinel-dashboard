@@ -1,5 +1,8 @@
-import { ComingSoon } from '@/components/ui/coming-soon';
+import type { Metadata } from 'next';
+import { OverviewPage } from '@/features/overview/overview-page';
+
+export const metadata: Metadata = { title: 'Overview' };
 
 export default function Page() {
-  return <ComingSoon title="Overview" description="Security command post" />;
+  return <OverviewPage />;
 }
