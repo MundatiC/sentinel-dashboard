@@ -93,6 +93,7 @@ export const alertSchema = z.object({
   firstEventAt: z.string(),
   lastEventAt: z.string(),
   assigneeId: z.string().nullable(),
+  incidentId: z.string().nullable().optional(),
   createdAt: z.string(),
   rule: z.object({ name: z.string() }).optional(),
 });
@@ -116,4 +117,108 @@ export const incidentSummarySchema = z.object({
 export const incidentListSchema = z.object({
   data: z.array(incidentSummarySchema),
   pagination: paginationSchema,
+});
+
+// ---------- alert detail ----------
+
+export const ruleSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string(),
+  enabled: z.boolean(),
+  eventType: z.string(),
+  groupBy: z.enum(['IP', 'ACTOR', 'SOURCE']),
+  threshold: z.number(),
+  windowSeconds: z.number(),
+  severity: severitySchema,
+  cooldownSeconds: z.number(),
+});
+export type ApiRule = z.infer<typeof ruleSchema>;
+export const ruleListSchema = z.object({ data: z.array(ruleSchema) });
+
+export const alertDetailSchema = z.object({
+  alert: alertSchema.extend({
+    incidentId: z.string().nullable(),
+    acknowledgedAt: z.string().nullable(),
+    resolvedAt: z.string().nullable(),
+    rule: ruleSchema,
+    events: z.array(eventSchema),
+  }),
+});
+export const alertUpdateSchema = z.object({ alert: alertSchema });
+
+// ---------- incident detail ----------
+
+export const timelineEntrySchema = z.object({
+  id: z.string(),
+  occurredAt: z.string(),
+  kind: z.enum(['NOTE', 'STATUS_CHANGE', 'ALERT_LINKED']),
+  body: z.string(),
+  author: z.object({ id: z.string(), email: z.string() }).nullable(),
+});
+export type TimelineEntry = z.infer<typeof timelineEntrySchema>;
+
+export const incidentDetailSchema = z.object({
+  incident: z.object({
+    id: z.string(),
+    title: z.string(),
+    status: incidentStatusSchema,
+    severity: severitySchema,
+    summary: z.string(),
+    createdAt: z.string(),
+    resolvedAt: z.string().nullable(),
+    timeline: z.array(timelineEntrySchema),
+    alerts: z.array(alertSchema.extend({ ruleName: z.string() })),
+  }),
+});
+export type IncidentDetail = z.infer<typeof incidentDetailSchema>['incident'];
+
+// ---------- scans ----------
+
+export const scanCategorySchema = z.enum([
+  'HEADERS',
+  'COOKIES',
+  'TLS',
+  'EXPOSED_FILES',
+  'DEPENDENCIES',
+]);
+export type ScanCategory = z.infer<typeof scanCategorySchema>;
+
+const severityCounts = z
+  .object({
+    INFO: z.number(),
+    LOW: z.number(),
+    MEDIUM: z.number(),
+    HIGH: z.number(),
+    CRITICAL: z.number(),
+  })
+  .partial();
+export const scanSummarySchema = z.object({
+  id: z.string(),
+  target: z.string(),
+  scannerVersion: z.string(),
+  startedAt: z.string(),
+  finishedAt: z.string(),
+  summary: severityCounts,
+  createdAt: z.string(),
+});
+export const scanListSchema = z.object({
+  data: z.array(scanSummarySchema),
+  pagination: paginationSchema,
+});
+
+export const findingSchema = z.object({
+  id: z.string(),
+  checkId: z.string(),
+  category: scanCategorySchema,
+  severity: severitySchema,
+  title: z.string(),
+  description: z.string(),
+  evidence: z.record(z.string(), z.unknown()),
+  remediation: z.string(),
+  references: z.array(z.string()),
+});
+export type ApiFinding = z.infer<typeof findingSchema>;
+export const scanDetailSchema = z.object({
+  scan: scanSummarySchema.extend({ findings: z.array(findingSchema) }),
 });

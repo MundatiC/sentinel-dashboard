@@ -3,7 +3,7 @@
 Web dashboard for **Sentinel**, the self-hostable security monitoring platform.
 Part of the suite: [sentinel-api](https://github.com/MundatiC/sentinel-api) · [sentinel-scanner](https://github.com/MundatiC/sentinel-scanner).
 
-> Status: **step 3 of 5**: design system, sign-in, Events explorer and Overview. Alerts + live feed, incidents, scans and admin screens follow.
+> Status: **step 4 of 5**: sign-in, Events, Overview, Alerts with a live feed, Incidents and Scan reports. Admin screens and final polish follow.
 
 **Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · TanStack Query · Recharts · Vitest + Testing Library · Playwright (+ axe).
 
@@ -47,6 +47,21 @@ flowchart LR
 
 - **Events explorer** (`/events`): filters (severity, type, source, IP, text, time range) live in the URL, so every view is shareable and survives reload; **server-side pagination**; a detail panel (`?event=<id>`) with the raw event; invalid IPs are flagged and never sent to the API.
 - **Overview** (`/overview`): KPI cards, hourly events-by-severity chart (empty hours filled with zeros, text summary for screen readers), alerts-by-status donut with a text legend, newest active alerts. All numbers come from the API; there is no placeholder data.
+
+## Live alerts
+
+The top bar shows **Live / Connecting / Reconnecting** for the alert stream. When the API raises or updates an alert, every alert view
+(counts, lists, charts) refreshes by itself and a toast announces new alerts to screen readers (`aria-live="polite"`).
+
+- The browser's `EventSource` cannot send an `Authorization` header, so the stream uses `fetch` (`@microsoft/fetch-event-source`).
+- The API ends the stream when the access token expires; the client then gets a fresh token and reconnects (backoff 1s to 15s,
+  30s if the server reports too many streams).
+
+## Alerts, incidents and scans
+
+- **Alerts** (`/alerts`, `/alerts/[id]`): status tabs with counts, the triggering events, the rule in plain English. Analysts can acknowledge, resolve, assign to themselves and open an incident. Viewers see the same page with disabled actions (the API enforces it).
+- **Incidents** (`/incidents`, `/incidents/[id]`): status stepper, chronological timeline (notes, status changes, linked alerts), linked alerts, JSON export, and the `sentinel-scan postmortem` command for the report.
+- **Scans** (`/scans`, `/scans/[id]`): findings grouped by category with evidence, remediation and reference links. Links are shown only for http(s) URLs and open with `rel="noopener noreferrer"`.
 
 ## End-to-end tests
 

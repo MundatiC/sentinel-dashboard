@@ -1,5 +1,13 @@
-import { ComingSoon } from '@/components/ui/coming-soon';
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+import { IncidentsPage } from '@/features/incidents/incidents-page';
+
+export const metadata: Metadata = { title: 'Incidents' };
 
 export default function Page() {
-  return <ComingSoon title="Incidents" description="Incident response" />;
+  return (
+    <Suspense>
+      <IncidentsPage />
+    </Suspense>
+  );
 }
