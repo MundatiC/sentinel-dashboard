@@ -1,9 +1,8 @@
-import { Plus, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
 import { LiveIndicator } from './live-indicator';
+import { NewIncidentButton } from './new-incident-button';
 import { UserMenu } from './user-menu';
 
-// Static shell for now: the live indicator, notifications and user menu are wired in later steps.
 export function Topbar({ children }: { children?: React.ReactNode }) {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-gutter bg-background/90 px-space-xl backdrop-blur">
@@ -24,9 +23,7 @@ export function Topbar({ children }: { children?: React.ReactNode }) {
         {children}
         <LiveIndicator />
         <UserMenu />
-        <Button variant="primary" disabled title="Available to analysts">
-          <Plus className="h-4 w-4" aria-hidden /> New Incident
-        </Button>
+        <NewIncidentButton />
       </div>
     </header>
   );

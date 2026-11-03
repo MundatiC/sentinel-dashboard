@@ -44,3 +44,15 @@ export async function ingestScan(request: APIRequestContext, key: string, scan: 
 export function uniqueIp() {
   return `192.0.2.${Math.floor(Math.random() * 250) + 2}`;
 }
+
+/** Self-registration creates a VIEWER (the API never lets a client choose its own role). Needs ALLOW_REGISTRATION=true. */
+export async function createViewer(request: APIRequestContext) {
+  const email = `viewer-${Date.now()}-${Math.floor(Math.random() * 1e4)}@example.com`;
+  const password = 'a-long-viewer-password-1';
+  const res = await request.post(`${API}/api/v1/auth/register`, { data: { email, password } });
+  if (!res.ok())
+    throw new Error(
+      `register failed: ${res.status()} (start the API with ALLOW_REGISTRATION=true)`,
+    );
+  return { email, password };
+}

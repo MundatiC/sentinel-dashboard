@@ -1,10 +1,13 @@
+import type { Metadata } from 'next';
 import { RequireRole } from '@/features/auth/guards';
-import { ComingSoon } from '@/components/ui/coming-soon';
+import { ApiKeysPage } from '@/features/admin/api-keys-page';
+
+export const metadata: Metadata = { title: 'API Keys' };
 
 export default function Page() {
   return (
     <RequireRole role="ADMIN">
-      <ComingSoon title="API Keys" description="Administration" />
+      <ApiKeysPage />
     </RequireRole>
   );
 }

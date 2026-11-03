@@ -22,7 +22,11 @@ export function EventsBySeverityChart({ points }: { points: ChartPoint[] }) {
     // The chart is a picture: screen readers get a text summary instead of 24 unlabeled bars.
     <div role="img" aria-label={describeChart(points)} className="h-72">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={points} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+        <BarChart
+          accessibilityLayer={false}
+          data={points}
+          margin={{ top: 8, right: 8, left: -12, bottom: 0 }}
+        >
           <CartesianGrid vertical={false} stroke="#3c4947" strokeOpacity={0.4} />
           <XAxis dataKey="label" tick={TICK} tickLine={false} axisLine={false} interval={3} />
           <YAxis tick={TICK} tickLine={false} axisLine={false} allowDecimals={false} />
@@ -62,8 +66,9 @@ export function StatusDonut({ slices, total }: { slices: DonutSlice[]; total: nu
   return (
     <div className="relative h-40 w-40 shrink-0" aria-hidden>
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
+        <PieChart accessibilityLayer={false}>
           <Pie
+            rootTabIndex={-1}
             data={total ? slices : [{ name: 'none', value: 1, color: '#31353b' }]}
             dataKey="value"
             innerRadius={52}
