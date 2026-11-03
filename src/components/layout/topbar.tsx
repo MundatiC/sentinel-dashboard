@@ -1,5 +1,6 @@
 import { Plus, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { UserMenu } from './user-menu';
 
 // Static shell for now: the live indicator, notifications and user menu are wired in later steps.
 export function Topbar({ children }: { children?: React.ReactNode }) {
@@ -20,6 +21,7 @@ export function Topbar({ children }: { children?: React.ReactNode }) {
       </form>
       <div className="ml-auto flex items-center gap-3">
         {children}
+        <UserMenu />
         <Button variant="primary" disabled title="Available to analysts">
           <Plus className="h-4 w-4" aria-hidden /> New Incident
         </Button>
