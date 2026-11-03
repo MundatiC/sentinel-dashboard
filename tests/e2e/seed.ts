@@ -30,3 +30,17 @@ export async function ingest(request: APIRequestContext, key: string, events: ob
     if (!res.ok()) throw new Error(`ingest failed: ${res.status()} ${await res.text()}`);
   }
 }
+
+export async function ingestScan(request: APIRequestContext, key: string, scan: object) {
+  const res = await request.post(`${API}/api/v1/ingest/scans`, {
+    headers: { 'X-API-Key': key },
+    data: scan,
+  });
+  if (!res.ok()) throw new Error(`scan ingest failed: ${res.status()} ${await res.text()}`);
+  return (await res.json()) as { id: string };
+}
+
+/** A random documentation-range IP, so each test run raises its own alert. */
+export function uniqueIp() {
+  return `192.0.2.${Math.floor(Math.random() * 250) + 2}`;
+}

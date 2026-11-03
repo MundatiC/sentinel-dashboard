@@ -4,6 +4,7 @@ import { Sidebar } from '@/components/layout/sidebar';
 import { Topbar } from '@/components/layout/topbar';
 import { useAuth } from '@/features/auth/auth-provider';
 import { RequireAuth } from '@/features/auth/guards';
+import { LiveProvider } from '@/features/live/live-provider';
 
 // The signed-in shell. Nothing inside renders until a session exists (see RequireAuth).
 function Shell({ children }: { children: React.ReactNode }) {
@@ -30,7 +31,9 @@ function Shell({ children }: { children: React.ReactNode }) {
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <RequireAuth>
-      <Shell>{children}</Shell>
+      <LiveProvider>
+        <Shell>{children}</Shell>
+      </LiveProvider>
     </RequireAuth>
   );
 }
