@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"primary-fixed":"#71f8e4","on-tertiary-container":"#00442c","on-tertiary-fixed-variant":"#005236","secondary-fixed-dim":"#adc6ff","on-primary-fixed":"#00201c","secondary-container":"#0566d9","tertiary-fixed":"#6ffbbe","tertiary-fixed-dim":"#4edea3","error":"#ffb4ab","surface-container":"#1c2025","inverse-on-surface":"#2d3136","surface-tint":"#4fdbc8","primary-fixed-dim":"#4fdbc8","on-secondary":"#002e6a","surface":"#101419","on-tertiary-fixed":"#002113","background":"#101419","on-secondary-fixed":"#001a42","outline-variant":"#3c4947","on-surface":"#e0e2ea","on-secondary-fixed-variant":"#004395","surface-container-highest":"#31353b","surface-variant":"#31353b","primary-container":"#14b8a6","on-error-container":"#ffdad6","surface-container-low":"#181c21","tertiary-container":"#16bb83","secondary":"#adc6ff","outline":"#859490","surface-bright":"#36393f","secondary-fixed":"#d8e2ff","on-primary":"#003731","surface-container-lowest":"#0a0e13","on-background":"#e0e2ea","on-primary-fixed-variant":"#005048","on-error":"#690005","on-secondary-container":"#e6ecff","inverse-primary":"#006b5f","on-tertiary":"#003824","tertiary":"#4edea3","inverse-surface":"#e0e2ea","error-container":"#93000a","surface-dim":"#101419","on-primary-container":"#00423b","on-surface-variant":"#bbcac6","primary":"#4fdbc8","surface-container-high":"#262a30"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-sm":"0.5rem","margin-compact":"1rem","space-xs":"0.25rem","gutter":"1rem","space-lg":"1rem","gutter-dense":"0.5rem","space-xl":"1.5rem","space-md":"0.75rem","margin":"1.5rem"},"fontFamily":{"body-dense":["Inter"],"label-default":["Inter"],"body-default":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"label-mono":["JetBrains Mono"],"code-sm":["JetBrains Mono"],"code-default":["JetBrains Mono"],"headline-xl":["Inter"]},"fontSize":{"body-dense":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"label-default":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-default":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-mono":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"500"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"400"}],"code-default":["13px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-background font-body-default text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest flex flex-col z-50 select-none"><div class="h-14 px-4 flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><img alt="Sentinel Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U94g262nN4mTvaJ-LxjFOhUxjLPPkBHhPSik_ZdKzEsJE6dv_t4eIQbOeCPmikarrDc_kjblqo-G6S5ZGmAg7h4z69fabgq_rTUGgBvfDvQ5YDXPy4s7HmxzW4x7GPzSs_T74wnxZ9q4T92GzvX4Ku0aJtoAH8H78PTdo3aV-WqVe4FbWSpXRl-_ZOYx8eN_RVbNT7BIc2mX5gwRGtwlpkVuxSXuG0PbR8fjsNX-0"/><span class="font-headline-md text-headline-md tracking-tight text-on-surface font-semibold">Sentinel</span></div><span class="font-label-mono text-label-mono px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">v1.0.4</span></div><div class="flex-1 overflow-y-auto px-space-sm py-space-sm"><div class="px-2.5 pb-1.5 pt-2 text-[10px] font-label-mono uppercase tracking-wider text-outline">Operations</div><nav class="flex flex-col gap-0.5" data-active-classes="bg-primary-container text-on-primary-container font-medium"><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="overview" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Overview</span></div></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="alerts" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">notifications_active</span><span>Alerts</span></div><span class="font-label-mono text-label-mono px-1.5 py-0.2 rounded bg-error-container text-error font-medium">14</span></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="events" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">query_stats</span><span>Events</span></div></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="incidents" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">warning</span><span>Incidents</span></div><span class="font-label-mono text-label-mono px-1.5 py-0.2 rounded bg-surface-container-highest text-tertiary font-medium">3 Active</span></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="scans" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">radar</span><span>Scans</span></div></a></nav><div class="px-2.5 pb-1.5 pt-4 text-[10px] font-label-mono uppercase tracking-wider text-outline">Governance</div><nav class="flex flex-col gap-0.5" data-active-classes="bg-primary-container text-on-primary-container font-medium"><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="alert-rules" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">rule</span><span>Alert Rules</span></div></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="users" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">group</span><span>Users</span></div></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="api-keys" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">key</span><span>API Keys</span></div></a><a class="group flex items-center justify-between px-2.5 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-dense text-body-dense" data-path="audit-log" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">history</span><span>Audit Log</span></div></a></nav></div><div class="p-3 bg-surface-container-low flex flex-col gap-space-xs"><div class="flex items-center justify-between text-on-surface-variant"><div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-tertiary inline-block animate-pulse"></span><span class="font-label-mono text-label-mono text-on-surface">daemon: healthy</span></div><span class="font-label-mono text-label-mono text-outline">99.98% up</span></div><div class="pt-1 flex items-center justify-between"><a class="font-label-default text-label-default text-outline hover:text-primary transition-colors flex items-center gap-1" href="#"><span>Docs &amp; API</span><span class="material-symbols-outlined text-[14px]">north_east</span></a><span class="font-label-mono text-label-mono text-outline-variant">node-us-04</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md z-40 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md flex-1 max-w-xl"><div class="flex items-center gap-1.5 font-label-mono text-label-mono text-on-surface-variant"><span class="text-outline">soc</span><span class="text-outline">/</span><span class="text-primary font-medium">telemetry</span></div><div class="relative flex-1"><div class="flex items-center bg-surface-container-high rounded px-3 py-1.5 gap-2 text-on-surface-variant focus-within:text-on-surface"><span class="material-symbols-outlined text-[16px] text-outline">search</span><input class="bg-transparent w-full focus:outline-none font-code-sm text-code-sm placeholder-outline text-on-surface" placeholder="Filter events, alerts, IPs, hashes..." type="text"/><div class="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-surface-container font-label-mono text-label-mono text-outline">⌘K</div></div></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container font-label-mono text-label-mono"><span class="h-2 w-2 rounded-full bg-tertiary animate-ping inline-block"></span><span class="text-on-surface font-medium">Live</span><span class="text-outline">·</span><span class="text-outline">12ms ws</span></div><div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container font-label-mono text-label-mono text-on-surface cursor-pointer hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px] text-primary">dns</span><span>prod-us-east-1</span><span class="material-symbols-outlined text-[16px] text-outline">expand_more</span></div><button class="p-1.5 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors" title="Theme Toggle" type="button"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><button class="relative p-1.5 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors" title="Notifications" type="button"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-error text-on-error font-label-mono text-[9px] flex items-center justify-center font-bold">3</span></button><button class="flex items-center gap-1 px-2.5 py-1 rounded bg-primary-container text-on-primary-container font-label-default text-label-default font-medium hover:bg-primary transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>New Incident</span></button><div class="flex items-center gap-2 pl-2"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVx07KVDrGYr1rJnHW_sceDqRWQl2ebVwqF34Zmq6zz9LUV57OMqU1ofcmYUuFKsNtDVUoQV9aOqWHv3CPzkPM-JCtp5WYRt-WbcHLskXHzFGMJHYPQNmsBSpqUlJqsFYWUjrvQz0GBEYPJI4cSpJFdIM-WNWea1_j7KkNBTV3qMi28RL9jcXaZ0Yb96VXU9PyZyY5ufjUDiP6oY4Ekpg5YK3tQmd8exdjIOEokY4"/><div class="flex flex-col"><span class="font-label-default text-label-default text-on-surface leading-none">Alex Morgan</span><span class="font-label-mono text-[10px] text-primary uppercase leading-tight font-medium">Admin</span></div></div></div></header><main class="w-full pt-14 px-gutter py-gutter bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Command Header Area -->
+<div class="flex flex-col gap-space-md mb-6">
+<!-- Breadcrumb & Top Utility Badges -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2 font-label-mono text-label-mono">
+<span class="text-outline">Sentinel</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-medium">Governance &amp; Settings</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-mono text-label-mono">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary">hub</span>
+<span>acme-corp</span>
+<span class="text-outline">/</span>
+<span class="text-on-surface">prod-us-east-1</span>
+</div>
+<a class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[14px]">history</span>
+<span>Audit Stream</span>
+</a>
+</div>
+</div>
+<!-- Title and Subtitle Block -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-semibold flex items-center gap-2.5">
+          Admin Settings
+          <span class="font-label-mono text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-primary font-normal uppercase tracking-wider">SEC-TIER 0</span>
+</h1>
+<p class="font-body-default text-body-default text-on-surface-variant mt-1">
+          Manage organization identity governance, programmatic ingress credentials, and automated detection policies.
+        </p>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="flex items-center gap-3 bg-surface-container-low p-1.5 rounded-lg">
+<div class="px-3 py-1 bg-surface-container rounded">
+<div class="text-[10px] font-label-mono uppercase text-outline">Active Keys</div>
+<div class="font-label-mono text-headline-md text-primary font-medium">8 <span class="text-[11px] text-outline">/ 25</span></div>
+</div>
+<div class="px-3 py-1 bg-surface-container rounded">
+<div class="text-[10px] font-label-mono uppercase text-outline">Active Rules</div>
+<div class="font-label-mono text-headline-md text-tertiary font-medium">16</div>
+</div>
+<div class="px-3 py-1 bg-surface-container rounded">
+<div class="text-[10px] font-label-mono uppercase text-outline">SSO Seats</div>
+<div class="font-label-mono text-headline-md text-secondary font-medium">12 <span class="text-[11px] text-outline">used</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Tab Switcher Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-surface-container-lowest p-1 rounded-lg mb-5">
+<div class="flex items-center gap-1" id="tab-nav">
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded font-label-default text-label-default transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container" id="tab-btn-users" onclick="switchTab('users')">
+<span class="material-symbols-outlined text-[16px]">group</span>
+<span>Users &amp; IAM</span>
+<span class="font-label-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">12</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded font-label-default text-label-default transition-all bg-primary-container text-on-primary-container font-semibold shadow-sm" id="tab-btn-api-keys" onclick="switchTab('api-keys')">
+<span class="material-symbols-outlined text-[16px]">vpn_key</span>
+<span>API Keys</span>
+<span class="font-label-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-lowest/40 text-on-primary-container">8</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded font-label-default text-label-default transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container" id="tab-btn-alert-rules" onclick="switchTab('alert-rules')">
+<span class="material-symbols-outlined text-[16px]">rule_settings</span>
+<span>Alert Rules</span>
+<span class="font-label-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">16</span>
+</button>
+</div>
+<!-- Quick filter within active pane -->
+<div class="flex items-center gap-2 px-2">
+<div class="flex items-center bg-surface-container px-2.5 py-1 rounded text-on-surface-variant w-64 focus-within:text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-outline mr-2">search</span>
+<input class="bg-transparent w-full focus:outline-none font-code-sm text-code-sm text-on-surface placeholder-outline" placeholder="Filter in view (⌘F)..." type="text"/>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB CONTENT 1: API KEYS (ACTIVE DEFAULT) -->
+<!-- ========================================================================= -->
+<div class="flex flex-col gap-4" id="pane-api-keys">
+<!-- Active Tab Action Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-label-mono text-label-mono uppercase text-outline">Scope Filter:</span>
+<select class="bg-surface-container text-on-surface font-label-default text-label-default px-2.5 py-1 rounded focus:outline-none cursor-pointer">
+<option>All Permissions (8)</option>
+<option>events:ingest</option>
+<option>scans:write</option>
+<option>alerts:read</option>
+<option>admin:*</option>
+</select>
+<div class="h-4 w-[1px] bg-surface-container-highest mx-1"></div>
+<span class="font-label-mono text-label-mono text-outline">TTL Status:</span>
+<button class="px-2 py-0.5 rounded bg-surface-container font-label-mono text-[11px] text-primary">All Active</button>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary-container text-on-primary-container font-label-default text-label-default font-medium hover:bg-primary transition-colors cursor-pointer shadow-sm" onclick="openModal()">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>Create API Key</span>
+</button>
+</div>
+<!-- API Keys High-Density Table Container -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-low shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest text-outline font-label-mono text-[11px] uppercase tracking-wider h-9">
+<th class="px-4 py-2 font-medium">Service Identifier</th>
+<th class="px-4 py-2 font-medium">Token Prefix</th>
+<th class="px-4 py-2 font-medium">Scopes Granted</th>
+<th class="px-4 py-2 font-medium">Created By</th>
+<th class="px-4 py-2 font-medium">Last Handshake</th>
+<th class="px-4 py-2 font-medium">Status</th>
+<th class="px-4 py-2 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-dense text-body-dense text-on-surface">
+<!-- Row 1 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors group">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">dns</span>
+<div>
+<div class="font-medium text-on-surface">prod-ingest-daemon-01</div>
+<div class="text-[11px] text-outline font-label-mono">US-East-1 VPC Agent Node</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-primary">snt_live_7x9Q2mK8...</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex flex-wrap gap-1">
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-tertiary">events:ingest</span>
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">telemetry:write</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="text-on-surface-variant font-label-mono text-label-mono">alex.morgan</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<span class="h-1.5 w-1.5 rounded-full bg-tertiary"></span>
+<span class="font-label-mono text-code-sm text-on-surface">2 mins ago</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-[10px] uppercase bg-surface-container-highest text-tertiary font-semibold">Active</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="text-outline hover:text-on-surface transition-colors p-1 rounded hover:bg-surface-container-high" title="Edit Scopes">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="text-error hover:bg-error-container hover:text-on-error-container transition-colors px-2 py-0.5 rounded font-label-mono text-[11px]" title="Revoke Immediately">
+                  Revoke
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors group">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">security</span>
+<div>
+<div class="font-medium text-on-surface">ci-cd-vulnerability-scanner</div>
+<div class="text-[11px] text-outline font-label-mono">GitLab CI Security Runner</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-primary">snt_live_v93Lk0Pw...</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex flex-wrap gap-1">
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-tertiary">scans:write</span>
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">cve:query</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="text-on-surface-variant font-label-mono text-label-mono">elena.rostova</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm text-outline">14h ago</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-[10px] uppercase bg-surface-container-highest text-tertiary font-semibold">Active</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="text-outline hover:text-on-surface transition-colors p-1 rounded hover:bg-surface-container-high" title="Edit Scopes">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="text-error hover:bg-error-container hover:text-on-error-container transition-colors px-2 py-0.5 rounded font-label-mono text-[11px]">
+                  Revoke
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors group">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">sync_alt</span>
+<div>
+<div class="font-medium text-on-surface">splunk-siem-forwarder</div>
+<div class="text-[11px] text-outline font-label-mono">Enterprise Splunk Cluster Sync</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-primary">snt_live_44mB81Jq...</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex flex-wrap gap-1">
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-tertiary">alerts:read</span>
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-tertiary">events:read</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="text-on-surface-variant font-label-mono text-label-mono">marcus.vance</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<span class="h-1.5 w-1.5 rounded-full bg-tertiary"></span>
+<span class="font-label-mono text-code-sm text-on-surface">5 mins ago</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-[10px] uppercase bg-surface-container-highest text-tertiary font-semibold">Active</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="text-outline hover:text-on-surface transition-colors p-1 rounded hover:bg-surface-container-high" title="Edit Scopes">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="text-error hover:bg-error-container hover:text-on-error-container transition-colors px-2 py-0.5 rounded font-label-mono text-[11px]">
+                  Revoke
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors group">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">terminal</span>
+<div>
+<div class="font-medium text-on-surface">github-actions-deployer</div>
+<div class="text-[11px] text-outline font-label-mono">Infrastructure as Code Pipe</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-primary">snt_live_88kLx001...</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex flex-wrap gap-1">
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-error">admin:rules</span>
+<span class="font-label-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">scans:read</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="text-on-surface-variant font-label-mono text-label-mono">alex.morgan</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm text-outline">Never</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-[10px] uppercase bg-surface-container-highest text-tertiary font-semibold">Active</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="text-outline hover:text-on-surface transition-colors p-1 rounded hover:bg-surface-container-high" title="Edit Scopes">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="text-error hover:bg-error-container hover:text-on-error-container transition-colors px-2 py-0.5 rounded font-label-mono text-[11px]">
+                  Revoke
+                </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Security Notice Card -->
+<div class="p-3 bg-surface-container-lowest rounded-lg flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2 text-label-default font-label-default">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span>Automatic key rotation is strictly enforced for tokens with <code class="font-label-mono text-primary">admin:*</code> scopes every 90 days.</span>
+</div>
+<a class="font-label-mono text-label-mono text-outline hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span>KMS Rotation Policy</span>
+<span class="material-symbols-outlined text-[12px]">north_east</span>
+</a>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB CONTENT 2: USERS & IAM (SWITCHABLE PANE) -->
+<!-- ========================================================================= -->
+<div class="hidden flex-col gap-4" id="pane-users">
+<!-- Inline Invite User Bar -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-center gap-2 flex-1 max-w-md">
+<input class="bg-surface-container px-3 py-1.5 rounded font-body-dense text-body-dense text-on-surface placeholder-outline focus:outline-none flex-1" placeholder="colleague@acme.com" type="email"/>
+<select class="bg-surface-container text-on-surface font-label-default text-label-default px-2.5 py-1.5 rounded focus:outline-none">
+<option>Lead Analyst</option>
+<option>Admin</option>
+<option>Tier-1 Triage</option>
+<option>Read-Only Observer</option>
+</select>
+<button class="px-3 py-1.5 rounded bg-primary-container text-on-primary-container font-label-default text-label-default font-medium hover:bg-primary transition-colors whitespace-nowrap">
+          Send Invite
+        </button>
+</div>
+<div class="flex items-center gap-3 text-outline font-label-mono text-label-mono">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span>Okta SCIM Sync: Synced</span>
+</div>
+</div>
+</div>
+<!-- Users Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-low shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest text-outline font-label-mono text-[11px] uppercase tracking-wider h-9">
+<th class="px-4 py-2 font-medium">Member / Email</th>
+<th class="px-4 py-2 font-medium">Assigned Role</th>
+<th class="px-4 py-2 font-medium">Security Clearance</th>
+<th class="px-4 py-2 font-medium">Account Status</th>
+<th class="px-4 py-2 font-medium">Last Login Handshake</th>
+<th class="px-4 py-2 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-dense text-body-dense text-on-surface">
+<!-- User 1 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-full bg-primary-container/20 text-primary flex items-center justify-center font-label-mono text-[11px] font-bold">AM</div>
+<div>
+<div class="font-medium text-on-surface">Alex Morgan</div>
+<div class="font-label-mono text-[11px] text-outline">alex.morgan@sentinel.internal</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<select class="bg-surface-container px-2 py-1 rounded text-on-surface font-label-default text-label-default focus:outline-none">
+<option selected="">Admin</option>
+<option>Lead Analyst</option>
+<option>Tier-1 Triage</option>
+<option>Read-Only Observer</option>
+</select>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[11px] px-2 py-0.5 rounded bg-error-container text-error font-medium">Level 4 · Root Org</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="w-8 h-4 bg-primary-container rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-on-primary-container rounded-full transform translate-x-4"></span>
+</span>
+<span class="font-label-mono text-[11px] text-tertiary">Active</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-label-mono text-code-sm text-on-surface">4 mins ago <span class="text-outline">(SSO/Okta)</span></div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User 2 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-full bg-secondary-container/20 text-secondary flex items-center justify-center font-label-mono text-[11px] font-bold">ER</div>
+<div>
+<div class="font-medium text-on-surface">Elena Rostova</div>
+<div class="font-label-mono text-[11px] text-outline">elena.rostova@sentinel.internal</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<select class="bg-surface-container px-2 py-1 rounded text-on-surface font-label-default text-label-default focus:outline-none">
+<option>Admin</option>
+<option selected="">Lead Analyst</option>
+<option>Tier-1 Triage</option>
+<option>Read-Only Observer</option>
+</select>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-medium">Level 3 · SecOps</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="w-8 h-4 bg-primary-container rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-on-primary-container rounded-full transform translate-x-4"></span>
+</span>
+<span class="font-label-mono text-[11px] text-tertiary">Active</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-label-mono text-code-sm text-outline">Yesterday 18:22 UTC</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User 3 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest text-outline flex items-center justify-center font-label-mono text-[11px] font-bold">MV</div>
+<div>
+<div class="font-medium text-on-surface">Marcus Vance</div>
+<div class="font-label-mono text-[11px] text-outline">marcus.vance@sentinel.internal</div>
+</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<select class="bg-surface-container px-2 py-1 rounded text-on-surface font-label-default text-label-default focus:outline-none">
+<option>Admin</option>
+<option>Lead Analyst</option>
+<option selected="">Tier-1 Triage</option>
+<option>Read-Only Observer</option>
+</select>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-medium">Level 2 · Triage</span>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="w-8 h-4 bg-surface-container-highest rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-outline rounded-full"></span>
+</span>
+<span class="font-label-mono text-[11px] text-outline">Suspended</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-label-mono text-code-sm text-outline">5 days ago</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB CONTENT 3: ALERT RULES (SWITCHABLE PANE) -->
+<!-- ========================================================================= -->
+<div class="hidden flex-col gap-4" id="pane-alert-rules">
+<!-- Alert Rule Tooling Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="font-label-mono text-label-mono uppercase text-outline">Rule Engine:</span>
+<span class="font-label-mono text-[11px] px-2 py-0.5 rounded bg-surface-container text-tertiary">SIGMA v2.1 COMPLIANT</span>
+<span class="text-outline font-label-mono text-label-mono">· 16 Active Trigger Pipelines</span>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary-container text-on-primary-container font-label-default text-label-default font-medium hover:bg-primary transition-colors cursor-pointer shadow-sm">
+<span class="material-symbols-outlined text-[16px]">add_task</span>
+<span>Define Custom Rule</span>
+</button>
+</div>
+<!-- Alert Rules Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-low shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest text-outline font-label-mono text-[11px] uppercase tracking-wider h-9">
+<th class="px-4 py-2 font-medium">Detection Rule Name</th>
+<th class="px-4 py-2 font-medium">Event Source Type</th>
+<th class="px-4 py-2 font-medium">Evaluation Condition</th>
+<th class="px-4 py-2 font-medium">Severity</th>
+<th class="px-4 py-2 font-medium">State</th>
+<th class="px-4 py-2 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-dense text-body-dense text-on-surface">
+<!-- Rule 1 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[18px]">terminal</span>
+<span class="font-medium text-on-surface">SSH Brute Force Velocity</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant">auth.login_failed</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm text-primary">≥ 5 auth.login_failed per IP in 60s</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[10px] uppercase px-2 py-0.5 rounded bg-error-container text-error font-semibold">Critical</span>
+</td>
+<td class="px-4 py-3">
+<span class="w-8 h-4 bg-tertiary-container rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-on-tertiary-container rounded-full transform translate-x-4"></span>
+</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</td>
+</tr>
+<!-- Rule 2 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[18px]">admin_panel_settings</span>
+<span class="font-medium text-on-surface">AWS Root Login without MFA</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant">aws.cloudtrail.ConsoleLogin</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm text-primary">userIdentity.type == "Root" AND MFAUsed == false</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[10px] uppercase px-2 py-0.5 rounded bg-error-container text-error font-semibold">Critical</span>
+</td>
+<td class="px-4 py-3">
+<span class="w-8 h-4 bg-tertiary-container rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-on-tertiary-container rounded-full transform translate-x-4"></span>
+</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</td>
+</tr>
+<!-- Rule 3 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">cloud_download</span>
+<span class="font-medium text-on-surface">Mass S3 Egress Spike</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant">network.flow.egress</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm text-primary">egress_bytes &gt; 5GB within 10m window</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[10px] uppercase px-2 py-0.5 rounded bg-surface-container-highest text-secondary font-semibold">High</span>
+</td>
+<td class="px-4 py-3">
+<span class="w-8 h-4 bg-tertiary-container rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-on-tertiary-container rounded-full transform translate-x-4"></span>
+</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</td>
+</tr>
+<!-- Rule 4 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">view_in_ar</span>
+<span class="font-medium text-on-surface">Kubernetes Privileged Pod Exec</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant">k8s.pod.security_violation</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-code-sm text-primary">spec.securityContext.privileged == true</span>
+</td>
+<td class="px-4 py-3">
+<span class="font-label-mono text-[10px] uppercase px-2 py-0.5 rounded bg-surface-container-highest text-outline font-semibold">Medium</span>
+</td>
+<td class="px-4 py-3">
+<span class="w-8 h-4 bg-surface-container-highest rounded-full relative cursor-pointer inline-flex items-center p-0.5">
+<span class="w-3 h-3 bg-outline rounded-full"></span>
+</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- "CREATE API KEY" DIALOG / ACTIVE MODAL OVERLAY -->
+<!-- ========================================================================= -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/80 backdrop-blur-sm transition-opacity" id="modal-container">
+<div class="w-full max-w-xl bg-surface-container-low rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="px-5 py-4 bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">key</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">New API Key Created</h2>
+<div class="font-label-mono text-[11px] text-outline">Identity: <span class="text-on-surface">prod-ingest-agent-01</span></div>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface p-1 rounded hover:bg-surface-container-high" onclick="closeModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-5 flex flex-col gap-4">
+<!-- Warning Banner -->
+<div class="p-3 bg-surface-container-highest rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">warning</span>
+<div class="font-body-dense text-body-dense text-on-surface">
+<span class="font-medium text-secondary">Store this key in your secret manager immediately.</span>
+            You won't be able to view this bearer token again. If lost, you will need to revoke and issue a replacement.
+          </div>
+</div>
+<!-- Token Monospace Box with Copy Button -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-mono text-label-mono uppercase text-outline flex items-center justify-between">
+<span>Bearer Authentication Secret</span>
+<span class="text-tertiary">Entropy: 256 bits · SHA-256 digest</span>
+</label>
+<div class="flex items-center gap-2 bg-surface-container-lowest p-2.5 rounded-lg">
+<span class="font-label-mono text-code-default text-primary flex-1 select-all break-all" id="token-val">snt_live_7x9Q2mK8pL1vW4zT6yB0eR3uI5oA8sD</span>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary-container text-on-primary-container font-label-default text-label-default font-medium hover:bg-primary transition-colors cursor-pointer shrink-0" id="copy-btn" onclick="copyToken()">
+<span class="material-symbols-outlined text-[16px]" id="copy-icon">content_copy</span>
+<span id="copy-text">Copy</span>
+</button>
+</div>
+</div>
+<!-- Granted Scopes Breakdown -->
+<div class="flex flex-col gap-2">
+<span class="font-label-mono text-label-mono uppercase text-outline">Scopes Assigned</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-tertiary font-label-mono text-code-sm">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>events:ingest</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-tertiary font-label-mono text-code-sm">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>scans:write</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-5 py-3.5 bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-outline font-label-mono text-[11px]">
+<span class="material-symbols-outlined text-[14px] text-primary">lock</span>
+<span>Encrypted via AWS KMS on dispatch</span>
+</div>
+<button class="px-4 py-1.5 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-default text-label-default font-medium transition-colors cursor-pointer" onclick="closeModal()">
+          Done &amp; Dismiss
+        </button>
+</div>
+</div>
+</div>
+<!-- Inline Script for Tab Navigation and Interactive Copy -->
+<script>
+    function switchTab(tab) {
+      const tabs = ['users', 'api-keys', 'alert-rules'];
+      tabs.forEach(t => {
+        const pane = document.getElementById('pane-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === tab) {
+          pane.classList.remove('hidden');
+          pane.classList.add('flex');
+          btn.className = 'flex items-center gap-2 px-3.5 py-1.5 rounded font-label-default text-label-default transition-all bg-primary-container text-on-primary-container font-semibold shadow-sm';
+        } else {
+          pane.classList.add('hidden');
+          pane.classList.remove('flex');
+          btn.className = 'flex items-center gap-2 px-3.5 py-1.5 rounded font-label-default text-label-default transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container';
+        }
+      });
+    }
+
+    function closeModal() {
+      document.getElementById('modal-container').classList.add('hidden');
+    }
+
+    function openModal() {
+      document.getElementById('modal-container').classList.remove('hidden');
+    }
+
+    function copyToken() {
+      const text = document.getElementById('token-val').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const copyBtnText = document.getElementById('copy-text');
+        const copyIcon = document.getElementById('copy-icon');
+        copyBtnText.innerText = 'Copied!';
+        copyIcon.innerText = 'check';
+        setTimeout(() => {
+          copyBtnText.innerText = 'Copy';
+          copyIcon.innerText = 'content_copy';
+        }, 2000);
+      });
+    }
+  </script>
+</div></main></div></body></html>
