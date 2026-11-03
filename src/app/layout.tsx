@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
+import { Providers } from './providers';
 
 // Render every page per request. The CSP nonce (src/middleware.ts) is unique to each request, and Next.js
 // can only add it to its own scripts when the HTML is generated at request time. A prerendered (static)
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

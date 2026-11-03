@@ -1,8 +1,13 @@
+'use client';
+
 import { Sidebar } from '@/components/layout/sidebar';
 import { Topbar } from '@/components/layout/topbar';
+import { useAuth } from '@/features/auth/auth-provider';
+import { RequireAuth } from '@/features/auth/guards';
 
-// The signed-in shell (sidebar + top bar). Authentication is added in the next step.
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+// The signed-in shell. Nothing inside renders until a session exists (see RequireAuth).
+function Shell({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
   return (
     <>
       <a
@@ -11,7 +16,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
-      <Sidebar role="ADMIN" />
+      <Sidebar role={user?.role} />
       <div className="pl-64">
         <Topbar />
         <main id="main" className="px-space-xl pb-space-xl pt-space-md">
@@ -19,5 +24,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </>
+  );
+}
+
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <RequireAuth>
+      <Shell>{children}</Shell>
+    </RequireAuth>
   );
 }

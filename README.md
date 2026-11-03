@@ -3,7 +3,7 @@
 Web dashboard for **Sentinel**, the self-hostable security monitoring platform.
 Part of the suite: [sentinel-api](https://github.com/MundatiC/sentinel-api) · [sentinel-scanner](https://github.com/MundatiC/sentinel-scanner).
 
-> Status: **step 1 of 5**: design system, app shell, security headers, tooling. Login, data pages, live alerts and admin screens follow.
+> Status: **step 2 of 5**: design system, app shell, sign-in with silent session refresh and role guards. Data pages, live alerts and admin screens follow.
 
 **Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · TanStack Query · Recharts · Vitest + Testing Library · Playwright (+ axe).
 
@@ -30,6 +30,29 @@ flowchart LR
   B -->|REST + SSE, JWT in memory<br/>refresh cookie httpOnly| A[sentinel-api]
   N -. never talks to the API in this design .-> A
 ```
+
+## Authentication
+
+- **The access token lives in memory only** (never localStorage/sessionStorage/readable cookies), so an XSS bug cannot read it from storage.
+  The **refresh token is the API's httpOnly cookie**, which JavaScript cannot read at all.
+- On load the app calls `POST /auth/refresh`: success means the user is silently signed in again.
+- A 401 triggers **one** shared refresh and **one** retry. Refresh tokens are single-use, so simultaneous 401s (and React dev
+  double-mounts) share a single in-flight refresh instead of looking like a stolen token to the API.
+- Every API response is validated with zod before use. The API's OpenAPI document does not describe responses, so the schemas live in `src/lib/api/schemas.ts`.
+- The `?next=` redirect after login is restricted to in-app paths (open-redirect protection).
+- Login errors never say which field was wrong, and the password field is cleared after a failed attempt.
+- Role-aware UI (`RequireRole`, nav) is a courtesy: the API enforces access.
+
+## End-to-end tests
+
+Playwright drives a real browser against a **running** dashboard and API:
+
+```bash
+E2E_BASE_URL=http://localhost:3000 E2E_ADMIN_EMAIL=admin@example.com E2E_ADMIN_PASSWORD=... npm run test:e2e
+```
+
+Start the API with a high `LOGIN_RATE_LIMIT` for this (the suite signs in many times as one user, which the real limit of
+10 per 15 minutes correctly blocks) and `CORS_ORIGINS` set to the dashboard's origin.
 
 ## Security decisions
 
