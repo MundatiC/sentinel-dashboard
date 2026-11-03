@@ -222,3 +222,44 @@ export type ApiFinding = z.infer<typeof findingSchema>;
 export const scanDetailSchema = z.object({
   scan: scanSummarySchema.extend({ findings: z.array(findingSchema) }),
 });
+
+// ---------- admin ----------
+
+export const adminUserSchema = userSchema.extend({ lastLoginAt: z.string().nullable() });
+export const adminUserListSchema = z.object({
+  data: z.array(adminUserSchema),
+  pagination: paginationSchema,
+});
+export type AdminUser = z.infer<typeof adminUserSchema>;
+
+export const API_KEY_SCOPES = ['events:write', 'scans:write', 'incidents:read'] as const;
+export const apiKeySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  prefix: z.string(),
+  scopes: z.array(z.string()),
+  lastUsedAt: z.string().nullable(),
+  expiresAt: z.string().nullable(),
+  revokedAt: z.string().nullable(),
+  createdAt: z.string(),
+});
+export type ApiKeyRow = z.infer<typeof apiKeySchema>;
+export const apiKeyListSchema = z.object({ data: z.array(apiKeySchema) });
+export const apiKeyCreatedSchema = z.object({ apiKey: apiKeySchema, key: z.string() });
+
+export const auditEntrySchema = z.object({
+  id: z.string(),
+  actorType: z.string(),
+  actorId: z.string().nullable(),
+  action: z.string(),
+  targetType: z.string().nullable(),
+  targetId: z.string().nullable(),
+  ip: z.string().nullable(),
+  metadata: z.unknown(),
+  createdAt: z.string(),
+});
+export const auditListSchema = z.object({
+  data: z.array(auditEntrySchema),
+  pagination: paginationSchema,
+});
+export const ruleResponseSchema = z.object({ rule: ruleSchema });

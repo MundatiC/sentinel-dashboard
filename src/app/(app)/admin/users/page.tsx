@@ -1,10 +1,13 @@
+import type { Metadata } from 'next';
 import { RequireRole } from '@/features/auth/guards';
-import { ComingSoon } from '@/components/ui/coming-soon';
+import { UsersPage } from '@/features/admin/users-page';
+
+export const metadata: Metadata = { title: 'Users' };
 
 export default function Page() {
   return (
     <RequireRole role="ADMIN">
-      <ComingSoon title="Users" description="Administration" />
+      <UsersPage />
     </RequireRole>
   );
 }

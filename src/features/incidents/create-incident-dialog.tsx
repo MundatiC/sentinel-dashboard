@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { SEVERITIES, type Severity } from '@/components/ui/severity';
 import { useIncidentMutations } from '@/lib/api/hooks';
@@ -23,6 +23,9 @@ export function CreateIncidentDialog({
   alertIds?: string[];
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  // Unique ids: more than one of these dialogs can exist on a page (top bar + alert page), and duplicate ids
+  // would bind a <label> to the wrong dialog's input.
+  const uid = useId();
   const router = useRouter();
   const { create } = useIncidentMutations();
   const [title, setTitle] = useState(defaultTitle);
@@ -59,11 +62,11 @@ export function CreateIncidentDialog({
     <dialog
       ref={ref}
       onClose={onClose}
-      aria-labelledby="new-incident-title"
+      aria-labelledby={`${uid}-title`}
       className="w-full max-w-lg rounded-xl bg-surface-container p-6 text-on-surface backdrop:bg-black/60"
     >
       <form onSubmit={submit} className="space-y-4">
-        <h2 id="new-incident-title" className="font-headline-lg text-headline-lg">
+        <h2 id={`${uid}-title`} className="font-headline-lg text-headline-lg">
           New incident
         </h2>
         {error && (
@@ -72,11 +75,14 @@ export function CreateIncidentDialog({
           </p>
         )}
         <div>
-          <label htmlFor="inc-title" className="mb-1 block font-label-default text-label-default">
+          <label
+            htmlFor={`${uid}-inc-title`}
+            className="mb-1 block font-label-default text-label-default"
+          >
             Title
           </label>
           <input
-            id="inc-title"
+            id={`${uid}-inc-title`}
             required
             maxLength={200}
             value={title}
@@ -85,11 +91,14 @@ export function CreateIncidentDialog({
           />
         </div>
         <div>
-          <label htmlFor="inc-sev" className="mb-1 block font-label-default text-label-default">
+          <label
+            htmlFor={`${uid}-inc-sev`}
+            className="mb-1 block font-label-default text-label-default"
+          >
             Severity
           </label>
           <select
-            id="inc-sev"
+            id={`${uid}-inc-sev`}
             value={severity}
             onChange={(e) => setSeverity(e.target.value as Severity)}
             className={`${field} h-10`}
@@ -100,11 +109,14 @@ export function CreateIncidentDialog({
           </select>
         </div>
         <div>
-          <label htmlFor="inc-sum" className="mb-1 block font-label-default text-label-default">
+          <label
+            htmlFor={`${uid}-inc-sum`}
+            className="mb-1 block font-label-default text-label-default"
+          >
             Summary (optional)
           </label>
           <textarea
-            id="inc-sum"
+            id={`${uid}-inc-sum`}
             maxLength={5000}
             rows={4}
             value={summary}
