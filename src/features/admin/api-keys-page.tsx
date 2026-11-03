@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { AlertTriangle, Copy, KeyRound, Plus } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
@@ -173,8 +174,6 @@ export function ApiKeysPage() {
   const [creating, setCreating] = useState(false);
   const [created, setCreated] = useState<{ key: string; name: string } | null>(null);
   const [confirming, setConfirming] = useState<string | null>(null);
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
   const closeAll = () => {
     setCreating(false);
     setCreated(null);
@@ -210,25 +209,15 @@ export function ApiKeysPage() {
                 API keys. The secret part is never shown again after creation.
               </caption>
               <thead>
-                <tr className="bg-surface-container-lowest">
-                  <th scope="col" className={th}>
-                    Name
-                  </th>
-                  <th scope="col" className={th}>
-                    Key
-                  </th>
-                  <th scope="col" className={th}>
-                    Permissions
-                  </th>
-                  <th scope="col" className={th}>
-                    Last used
-                  </th>
-                  <th scope="col" className={th}>
-                    Status
-                  </th>
-                  <th scope="col" className={th}>
+                <tr className={HEAD_ROW}>
+                  <Th>Name</Th>
+                  <Th>Key</Th>
+                  <Th>Permissions</Th>
+                  <Th>Last used</Th>
+                  <Th>Status</Th>
+                  <Th>
                     <span className="sr-only">Actions</span>
-                  </th>
+                  </Th>
                 </tr>
               </thead>
               <tbody>

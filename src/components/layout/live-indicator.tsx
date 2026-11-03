@@ -20,7 +20,7 @@ export function LiveIndicator() {
           status === 'live' ? 'bg-tertiary' : 'animate-pulse bg-[#eab308]',
         )}
       />
-      {LABEL[status]}
+      <span className="max-sm:sr-only">{LABEL[status]}</span>
     </span>
   );
 }

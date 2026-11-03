@@ -9,6 +9,7 @@
 }
 
 body {
+  font-variant-numeric: tabular-nums;
   @apply bg-background font-body-default text-body-default text-on-surface antialiased;
 }
 

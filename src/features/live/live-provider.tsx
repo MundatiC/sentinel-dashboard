@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { SeverityBadge } from '@/components/ui/severity';
 import { refreshAlertViews } from '@/lib/api/hooks';
-import { runAlertStream, type LiveAlert, type LiveStatus } from './stream';
+import { coalesce, runAlertStream, type LiveAlert, type LiveStatus } from './stream';
 
 const LiveContext = createContext<LiveStatus>('connecting');
 export const useLiveStatus = () => useContext(LiveContext);
@@ -30,11 +30,12 @@ export function LiveProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const controller = new AbortController();
     let counter = 0;
+    const refresh = coalesce(() => refreshAlertViews(client), 400);
     void runAlertStream({
       signal: controller.signal,
       onStatus: setStatus,
       onMessage: ({ type, alert }) => {
-        refreshAlertViews(client); // counts, lists, charts: everything showing alerts updates by itself
+        refresh.call(); // counts, lists, charts: everything showing alerts updates by itself (bursts coalesce)
         if (type === 'alert.created') {
           const key = ++counter;
           setToasts((t) => [...t.slice(-2), { key, alert }]);
@@ -42,7 +43,10 @@ export function LiveProvider({ children }: { children: React.ReactNode }) {
         }
       },
     });
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+      refresh.cancel();
+    };
   }, [client, dismiss]);
 
   const value = useMemo(() => status, [status]);

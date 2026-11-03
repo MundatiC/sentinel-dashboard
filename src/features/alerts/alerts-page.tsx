@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
@@ -54,8 +55,6 @@ export function AlertsPage() {
   };
 
   const { data, error, isLoading, refetch } = useAlerts({ status, page, pageSize });
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
 
   return (
     <>
@@ -100,25 +99,13 @@ export function AlertsPage() {
               <table className="w-full min-w-[48rem] text-body-dense">
                 <caption className="sr-only">{status.toLowerCase()} alerts, newest first</caption>
                 <thead>
-                  <tr className="bg-surface-container-lowest">
-                    <th scope="col" className={th}>
-                      Severity
-                    </th>
-                    <th scope="col" className={th}>
-                      Alert
-                    </th>
-                    <th scope="col" className={th}>
-                      Group
-                    </th>
-                    <th scope="col" className={th}>
-                      Events
-                    </th>
-                    <th scope="col" className={th}>
-                      Status
-                    </th>
-                    <th scope="col" className={th}>
-                      Age
-                    </th>
+                  <tr className={HEAD_ROW}>
+                    <Th>Severity</Th>
+                    <Th>Alert</Th>
+                    <Th>Group</Th>
+                    <Th>Events</Th>
+                    <Th>Status</Th>
+                    <Th>Age</Th>
                   </tr>
                 </thead>
                 <tbody>

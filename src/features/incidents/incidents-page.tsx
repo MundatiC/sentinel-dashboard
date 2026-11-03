@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -36,8 +37,6 @@ export function IncidentsPage() {
     pageSize: 25,
   });
   const analyst = canSee(user?.role, 'ANALYST');
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
 
   const go = (show: string, p: number) => {
     const qs = new URLSearchParams();
@@ -96,22 +95,12 @@ export function IncidentsPage() {
               <table className="w-full min-w-[40rem] text-body-dense">
                 <caption className="sr-only">Incidents, newest first</caption>
                 <thead>
-                  <tr className="bg-surface-container-lowest">
-                    <th scope="col" className={th}>
-                      Severity
-                    </th>
-                    <th scope="col" className={th}>
-                      Incident
-                    </th>
-                    <th scope="col" className={th}>
-                      Status
-                    </th>
-                    <th scope="col" className={th}>
-                      Alerts
-                    </th>
-                    <th scope="col" className={th}>
-                      Opened
-                    </th>
+                  <tr className={HEAD_ROW}>
+                    <Th>Severity</Th>
+                    <Th>Incident</Th>
+                    <Th>Status</Th>
+                    <Th>Alerts</Th>
+                    <Th>Opened</Th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,7 +123,9 @@ export function IncidentsPage() {
                       <td className="px-3 py-3">
                         <StatusBadge status={i.status} />
                       </td>
-                      <td className="px-3 py-3 font-code-sm text-code-sm">{i.alertCount}</td>
+                      <td className="px-3 py-3 text-right font-code-sm text-code-sm">
+                        {i.alertCount}
+                      </td>
                       <td className="whitespace-nowrap px-3 py-3 text-on-surface-variant">
                         {relativeTime(i.createdAt)}
                       </td>

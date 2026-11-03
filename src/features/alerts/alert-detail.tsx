@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { ArrowLeft, Check, CheckCircle2, Copy, Eye, UserCheck, UserMinus } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -29,7 +30,7 @@ export function describeRule(rule: ApiRule): string {
 function Meta({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="font-label-mono text-label-mono uppercase text-outline">{label}</dt>
+      <dt className="text-label-default text-on-surface-variant">{label}</dt>
       <dd className="mt-1 text-body-default">{children}</dd>
     </div>
   );
@@ -186,15 +187,9 @@ export function AlertDetail({ id }: { id: string }) {
                       Events that triggered this alert (newest first, at most 100)
                     </caption>
                     <thead>
-                      <tr className="bg-surface-container-lowest">
+                      <tr className={HEAD_ROW}>
                         {['Time (UTC)', 'Type', 'Source', 'Actor', 'IP', 'Message'].map((h) => (
-                          <th
-                            key={h}
-                            scope="col"
-                            className="px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline"
-                          >
-                            {h}
-                          </th>
+                          <Th key={h}>{h}</Th>
                         ))}
                       </tr>
                     </thead>

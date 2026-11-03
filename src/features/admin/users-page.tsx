@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import { useState } from 'react';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
 import { Pagination } from '@/components/data/pagination';
@@ -24,8 +25,6 @@ export function UsersPage() {
       : update.error
         ? 'Could not update the user.'
         : null;
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
 
   return (
     <>
@@ -54,22 +53,14 @@ export function UsersPage() {
               <table className="w-full min-w-[44rem] text-body-dense">
                 <caption className="sr-only">Users</caption>
                 <thead>
-                  <tr className="bg-surface-container-lowest">
-                    <th scope="col" className={th}>
-                      Email
-                    </th>
-                    <th scope="col" className={th}>
-                      Role
-                    </th>
-                    <th scope="col" className={th}>
-                      Status
-                    </th>
-                    <th scope="col" className={th}>
-                      Last sign-in
-                    </th>
-                    <th scope="col" className={th}>
+                  <tr className={HEAD_ROW}>
+                    <Th>Email</Th>
+                    <Th>Role</Th>
+                    <Th>Status</Th>
+                    <Th>Last sign-in</Th>
+                    <Th>
                       <span className="sr-only">Actions</span>
-                    </th>
+                    </Th>
                   </tr>
                 </thead>
                 <tbody>

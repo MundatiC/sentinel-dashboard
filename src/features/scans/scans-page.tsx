@@ -1,5 +1,6 @@
 'use client';
 
+import { HEAD_ROW, Th } from '@/components/data/table';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
@@ -34,8 +35,6 @@ export function ScansPage() {
   const params = useSearchParams();
   const page = Math.max(1, Number.parseInt(params.get('page') ?? '1', 10) || 1);
   const { data, error, isLoading, refetch } = useScans(page, 25);
-  const th =
-    'px-3 py-2 text-left font-label-mono text-label-mono font-medium uppercase text-outline';
 
   return (
     <>
@@ -64,19 +63,11 @@ export function ScansPage() {
               <table className="w-full min-w-[40rem] text-body-dense">
                 <caption className="sr-only">Scan reports, newest first</caption>
                 <thead>
-                  <tr className="bg-surface-container-lowest">
-                    <th scope="col" className={th}>
-                      Target
-                    </th>
-                    <th scope="col" className={th}>
-                      Scanned (UTC)
-                    </th>
-                    <th scope="col" className={th}>
-                      Scanner
-                    </th>
-                    <th scope="col" className={th}>
-                      Findings
-                    </th>
+                  <tr className={HEAD_ROW}>
+                    <Th>Target</Th>
+                    <Th>Scanned (UTC)</Th>
+                    <Th>Scanner</Th>
+                    <Th>Findings</Th>
                   </tr>
                 </thead>
                 <tbody>

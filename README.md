@@ -20,6 +20,8 @@ Part of the suite: [sentinel-api](https://github.com/MundatiC/sentinel-api) · [
 | **Scans**     | Findings grouped by category with evidence, remediation and safe reference links                                                     |
 | **Admin**     | Users and roles, API keys (secret shown once, two-step revoke), alert rules, audit log                                               |
 
+Responsive: below 1024px the navigation becomes a drawer (see the [phone screenshot](docs/screenshots/mobile.png)). Reviewed with the ponytail and taste-skill methods: [docs/AUDIT.md](docs/AUDIT.md).
+
 Role-aware: viewers read, analysts triage and run incidents, admins manage users, keys and rules. (The API enforces this; the UI just avoids showing what you cannot use.)
 
 <details><summary>More screenshots</summary>

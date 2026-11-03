@@ -42,3 +42,7 @@ The mock-ups contain decorative content the API cannot back. We do **not** rende
 - The sign-in screen shows only the real API error ("Invalid credentials"), not an invented attempt counter.
 - The `prod-us-east-1` selector is omitted: Sentinel is single-tenant.
 - Light theme is not designed in Stitch: dark only for now.
+- Tokens: labels are 12px (design: 11px) and small mono data 13px (design: 12px), so data and labels stay readable.
+- Interface rules from [taste-skill](https://github.com/leonxlnx/taste-skill) were applied where they disagreed with the mock-ups
+  (quiet navigation, sentence-case table headers, tabular figures, KPIs as type, pale severity pills, fewer chart hues). See [AUDIT.md](AUDIT.md).
+- Responsive: the mock-ups are desktop only; below 1024px the navigation becomes a drawer.

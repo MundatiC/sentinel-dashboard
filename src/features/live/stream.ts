@@ -25,6 +25,26 @@ export class StreamError extends Error {
   }
 }
 
+/**
+ * Collapse a burst of calls into ONE call shortly after the burst ends. An ingest batch can raise or update dozens of
+ * alerts within a second; refetching every alert view for each one would hammer the API for no visible benefit.
+ */
+export function coalesce(fn: () => void, ms: number): { call: () => void; cancel: () => void } {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return {
+    call: () => {
+      timer ??= setTimeout(() => {
+        timer = undefined;
+        fn();
+      }, ms);
+    },
+    cancel: () => {
+      clearTimeout(timer);
+      timer = undefined;
+    },
+  };
+}
+
 /** Milliseconds until a JWT expires, read from its (unverified) payload. Only used to schedule a refresh. */
 export function tokenExpiresInMs(token: string, now = Date.now()): number | null {
   try {

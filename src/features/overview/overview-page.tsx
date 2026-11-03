@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { EmptyState, ErrorState, Skeleton } from '@/components/data/states';
 import { Card, PageHeader } from '@/components/ui/card';
-import { SeverityBadge } from '@/components/ui/severity';
+import { SEVERITIES, SEVERITY_COLORS, SeverityBadge } from '@/components/ui/severity';
 import { useAlertCount, useEventStats, useIncidentCount, useRecentAlerts } from '@/lib/api/hooks';
-import { formatNumber, relativeTime } from '@/lib/format';
+import { formatNumber, plural, relativeTime } from '@/lib/format';
 import { fillHourlyBuckets } from './chart-data';
 import { EventsBySeverityChart, StatusDonut } from './charts';
 
@@ -24,11 +24,11 @@ function Kpi({
   error: boolean;
 }) {
   return (
-    <Card className="p-space-xl">
-      <h2 className="font-label-mono text-label-mono uppercase text-outline">{label}</h2>
-      <p className="mt-3 font-headline-xl text-[2.25rem] leading-none">
+    <div className="p-space-xl">
+      <h2 className="text-label-default text-on-surface-variant">{label}</h2>
+      <p className="mt-2 text-[1.75rem] font-semibold leading-none">
         {loading ? (
-          <Skeleton className="h-9 w-24" />
+          <Skeleton className="h-7 w-20" />
         ) : error ? (
           <span className="text-error" title="Could not load">
             –
@@ -38,7 +38,7 @@ function Kpi({
         )}
       </p>
       <p className="mt-2 text-label-default text-on-surface-variant">{hint}</p>
-    </Card>
+    </div>
   );
 }
 
@@ -59,9 +59,9 @@ export function OverviewPage() {
   const statusTotal = (openAlerts.data ?? 0) + (ackAlerts.data ?? 0) + (resolvedAlerts.data ?? 0);
 
   const slices = [
-    { name: 'Open', value: openAlerts.data ?? 0, color: '#ffb4ab' },
-    { name: 'Acknowledged', value: ackAlerts.data ?? 0, color: '#adc6ff' },
-    { name: 'Resolved', value: resolvedAlerts.data ?? 0, color: '#4edea3' },
+    { name: 'Open', value: openAlerts.data ?? 0, color: '#ef4444' },
+    { name: 'Acknowledged', value: ackAlerts.data ?? 0, color: '#eab308' },
+    { name: 'Resolved', value: resolvedAlerts.data ?? 0, color: '#6b7280' },
   ];
 
   return (
@@ -71,7 +71,7 @@ export function OverviewPage() {
         description="Real-time attack surface telemetry and rule evaluations."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid divide-outline-variant/30 overflow-hidden rounded-xl bg-surface-container-low max-sm:divide-y sm:grid-cols-2 sm:max-xl:[&>*:nth-child(n+3)]:border-t sm:max-xl:[&>*:nth-child(n+3)]:border-outline-variant/30 sm:max-xl:[&>*:nth-child(even)]:border-l sm:max-xl:[&>*:nth-child(even)]:border-outline-variant/30 xl:grid-cols-4 xl:divide-x">
         <Kpi
           label="Open alerts"
           value={openAlerts.data}
@@ -114,13 +114,10 @@ export function OverviewPage() {
               className="mt-3 flex flex-wrap gap-4 text-label-default text-on-surface-variant"
               aria-label="Legend"
             >
-              {[
-                ['Critical', '#ef4444'],
-                ['High', '#f97316'],
-                ['Medium', '#eab308'],
-                ['Low', '#3b82f6'],
-                ['Info', '#6b7280'],
-              ].map(([name, color]) => (
+              {SEVERITIES.map(
+                (sev) =>
+                  [sev.charAt(0) + sev.slice(1).toLowerCase(), SEVERITY_COLORS[sev]] as const,
+              ).map(([name, color]) => (
                 <li key={name} className="flex items-center gap-1.5">
                   <span
                     aria-hidden
@@ -198,7 +195,7 @@ export function OverviewPage() {
                     </div>
                     <p className="line-clamp-2 text-body-default">{alert.title}</p>
                     <p className="mt-1 text-label-default text-on-surface-variant">
-                      {alert.eventCount} events · {alert.status.toLowerCase()}
+                      {plural(alert.eventCount, 'event')} · {alert.status.toLowerCase()}
                     </p>
                   </Link>
                 </li>

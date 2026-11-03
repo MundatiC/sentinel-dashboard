@@ -16,12 +16,12 @@ export function NewIncidentButton() {
   return (
     <>
       <Button
-        variant="primary"
         disabled={!allowed}
         title={allowed ? undefined : 'Requires the analyst role'}
         onClick={() => setOpen(true)}
       >
-        <Plus className="h-4 w-4" aria-hidden /> New Incident
+        <Plus className="h-4 w-4" aria-hidden />{' '}
+        <span className="max-sm:sr-only">New Incident</span>
       </Button>
       <CreateIncidentDialog open={open} onClose={() => setOpen(false)} />
     </>

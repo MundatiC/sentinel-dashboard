@@ -11,7 +11,7 @@ import { formatTimestamp } from '@/lib/format';
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex justify-between gap-4 py-1.5">
-      <dt className="font-label-mono text-label-mono uppercase text-outline">{label}</dt>
+      <dt className="text-label-default text-on-surface-variant">{label}</dt>
       <dd className="text-right font-code-sm text-code-sm break-all">{children}</dd>
     </div>
   );
@@ -115,11 +115,11 @@ export function EventDrawer({
             </Button>
           </div>
           <div className="px-4 pb-4">
-            <p className="mb-2 font-label-mono text-label-mono uppercase text-outline">Message</p>
+            <p className="mb-2 text-label-default text-on-surface-variant">Message</p>
             <p className="mb-4 whitespace-pre-wrap break-words text-body-default">
               {event.message}
             </p>
-            <p className="mb-2 font-label-mono text-label-mono uppercase text-outline">Raw event</p>
+            <p className="mb-2 text-label-default text-on-surface-variant">Raw event</p>
             <pre
               tabIndex={0}
               aria-label="Raw event JSON"
