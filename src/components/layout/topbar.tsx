@@ -7,7 +7,7 @@ import { UserMenu } from './user-menu';
 
 export function Topbar({ onMenu, navOpen }: { onMenu?: () => void; navOpen?: boolean }) {
   return (
-    <header className="sticky top-0 z-20 flex h-14 items-center gap-3 bg-background/95 px-4 sm:px-space-xl">
+    <header className="sticky top-0 z-20 print:hidden flex h-14 items-center gap-3 bg-background/95 px-4 sm:px-space-xl">
       <button
         type="button"
         onClick={onMenu}

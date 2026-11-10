@@ -1,14 +1,16 @@
 'use client';
 
-import { ArrowLeft, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Printer } from 'lucide-react';
 import Link from 'next/link';
 import { ErrorState, Skeleton } from '@/components/data/states';
 import { Card } from '@/components/ui/card';
 import { SafeLink } from '@/components/ui/safe-link';
 import { SEVERITIES, SeverityBadge } from '@/components/ui/severity';
-import { useScan } from '@/lib/api/hooks';
+import { useScan, useScanHistory } from '@/lib/api/hooks';
 import type { ApiFinding, ScanCategory } from '@/lib/api/schemas';
 import { formatTimestamp } from '@/lib/format';
+import { ScanInsights } from './scan-insights';
+import { ScanPrint } from './scan-print';
 import { SeverityCounts } from './scans-page';
 
 export const CATEGORY_LABEL: Record<ScanCategory, string> = {
@@ -99,6 +101,25 @@ export function ScanDetail({ id }: { id: string }) {
       </div>
     );
   if (error || !scan) return <ErrorState error={error} onRetry={() => refetch()} />;
+  return <ScanView scan={scan} />;
+}
+
+type LoadedScan = NonNullable<ReturnType<typeof useScan>['data']>;
+
+/** Chrome names a saved PDF after the page title, so give it a meaningful one while printing. */
+function exportPdf(scan: LoadedScan) {
+  const original = document.title;
+  const host = scan.target.replace(/^https?:\/\//, '').replace(/[^a-z0-9]+/gi, '-');
+  document.title = `sentinel-report-${host}-${scan.finishedAt.slice(0, 10)}`;
+  window.addEventListener('afterprint', () => (document.title = original), { once: true });
+  window.print();
+}
+
+function ScanView({ scan }: { scan: LoadedScan }) {
+  // History is newest first, so the scan right after this one in the list is the one before it in time.
+  const { data: history = [] } = useScanHistory(scan.target);
+  const index = history.findIndex((s) => s.id === scan.id);
+  const { data: previous } = useScan(index >= 0 ? history[index + 1]?.id : undefined);
 
   const groups = groupFindings(scan.findings);
   const seconds = Math.max(
@@ -108,62 +129,76 @@ export function ScanDetail({ id }: { id: string }) {
 
   return (
     <>
-      <Link
-        href="/scans"
-        className="mb-4 inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface"
-      >
-        <ArrowLeft className="h-4 w-4" aria-hidden /> Scans
-      </Link>
-      <Card className="mb-4">
-        <h1 className="break-all font-headline-xl text-headline-xl">{scan.target}</h1>
-        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
-          <div>
-            <dt className="text-label-default text-on-surface-variant">Scanned</dt>
-            <dd className="mt-1">{formatTimestamp(scan.finishedAt)} UTC</dd>
-          </div>
-          <div>
-            <dt className="text-label-default text-on-surface-variant">Duration</dt>
-            <dd className="mt-1">{seconds}s</dd>
-          </div>
-          <div>
-            <dt className="text-label-default text-on-surface-variant">Scanner</dt>
-            <dd className="mt-1 font-code-default text-code-default">
-              sentinel-scanner v{scan.scannerVersion}
-            </dd>
-          </div>
-        </dl>
-        <div className="mt-4">
-          <SeverityCounts summary={scan.summary} />
-        </div>
-      </Card>
-
-      {groups.length === 0 && (
-        <Card className="text-tertiary">No findings: nothing to fix in this scan.</Card>
-      )}
-      <div className="space-y-4">
-        {groups.map(({ category, findings }) => (
-          <section
-            key={category}
-            aria-labelledby={`cat-${category}`}
-            className="rounded-xl bg-surface-container-low p-space-xl"
+      <ScanPrint scan={scan} previous={previous} />
+      <div className="print:hidden">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <Link
+            href="/scans"
+            className="inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface"
           >
-            <h2 id={`cat-${category}`} className="mb-3 font-headline-md text-headline-md">
-              {CATEGORY_LABEL[category]}{' '}
-              <span className="ml-2 font-body-default text-on-surface-variant">
-                {findings.length} {findings.length === 1 ? 'finding' : 'findings'}
-              </span>
-            </h2>
-            <div className="space-y-2">
-              {findings.map((f) => (
-                <Finding key={f.id} finding={f} />
-              ))}
+            <ArrowLeft className="h-4 w-4" aria-hidden /> Scans
+          </Link>
+          <button
+            type="button"
+            onClick={() => exportPdf(scan)}
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary-container px-4 text-on-primary-container hover:opacity-90"
+          >
+            <Printer className="h-4 w-4" aria-hidden /> Export PDF
+          </button>
+        </div>
+        <Card className="mb-4">
+          <h1 className="break-all font-headline-xl text-headline-xl">{scan.target}</h1>
+          <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+            <div>
+              <dt className="text-label-default text-on-surface-variant">Scanned</dt>
+              <dd className="mt-1">{formatTimestamp(scan.finishedAt)} UTC</dd>
             </div>
-          </section>
-        ))}
+            <div>
+              <dt className="text-label-default text-on-surface-variant">Duration</dt>
+              <dd className="mt-1">{seconds}s</dd>
+            </div>
+            <div>
+              <dt className="text-label-default text-on-surface-variant">Scanner</dt>
+              <dd className="mt-1 font-code-default text-code-default">
+                sentinel-scanner v{scan.scannerVersion}
+              </dd>
+            </div>
+          </dl>
+          <div className="mt-4">
+            <SeverityCounts summary={scan.summary} />
+          </div>
+        </Card>
+        <ScanInsights scan={scan} previous={previous} history={history} />
+
+        {groups.length === 0 && (
+          <Card className="text-tertiary">No findings: nothing to fix in this scan.</Card>
+        )}
+        <div className="space-y-4">
+          {groups.map(({ category, findings }) => (
+            <section
+              key={category}
+              aria-labelledby={`cat-${category}`}
+              className="rounded-xl bg-surface-container-low p-space-xl"
+            >
+              <h2 id={`cat-${category}`} className="mb-3 font-headline-md text-headline-md">
+                {CATEGORY_LABEL[category]}{' '}
+                <span className="ml-2 font-body-default text-on-surface-variant">
+                  {findings.length} {findings.length === 1 ? 'finding' : 'findings'}
+                </span>
+              </h2>
+              <div className="space-y-2">
+                {findings.map((f) => (
+                  <Finding key={f.id} finding={f} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+        <p className="mt-4 text-label-default text-on-surface-variant">
+          Categories without findings are not listed: they were either clean or not part of this
+          scan.
+        </p>
       </div>
-      <p className="mt-4 text-label-default text-on-surface-variant">
-        Categories without findings are not listed: they were either clean or not part of this scan.
-      </p>
     </>
   );
 }
