@@ -31,6 +31,23 @@ export function GradeBadge({ grade, className }: { grade: Grade; className?: str
   );
 }
 
+/** Compact grade for table rows: the letter plus the score, never colour alone. */
+export function GradeChip({ summary }: { summary: Parameters<typeof scoreOf>[0] }) {
+  const score = scoreOf(summary);
+  const grade = gradeOf(score);
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded px-2 py-0.5 font-label-mono text-label-mono',
+        GRADE_STYLE[grade],
+      )}
+    >
+      <strong>{grade}</strong>
+      <span aria-label={`score ${score} out of 100`}>{score}</span>
+    </span>
+  );
+}
+
 type HistoryItem = { id: string; finishedAt: string; summary: Parameters<typeof scoreOf>[0] };
 
 function Trend({ history }: { history: HistoryItem[] }) {
@@ -38,23 +55,31 @@ function Trend({ history }: { history: HistoryItem[] }) {
   const points = [...history]
     .reverse()
     .map((s) => ({ date: formatTimestamp(s.finishedAt).slice(0, 10), score: scoreOf(s.summary) }));
+  const first = points[0]!.score;
+  const last = points[points.length - 1]!.score;
   return (
-    <div
-      role="img"
-      aria-label={`Score over time: ${points.map((p) => p.score).join(', ')}`}
-      className="h-24 w-full sm:w-64"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={points} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
-          <XAxis dataKey="date" hide />
-          <YAxis domain={[0, 100]} hide />
-          <Tooltip
-            contentStyle={{ background: '#121821', border: '1px solid #1F2937', fontSize: 12 }}
-            formatter={(value) => [`${value}/100`, 'Score']}
-          />
-          <Line type="monotone" dataKey="score" stroke="#14b8a6" strokeWidth={2} dot />
-        </LineChart>
-      </ResponsiveContainer>
+    <div className="w-full sm:w-72">
+      <p className="mb-1 text-label-default text-on-surface-variant">
+        Trend: {first} → {last} over {points.length} scans
+      </p>
+      <div
+        role="img"
+        aria-label={`Score over time: ${points.map((p) => p.score).join(', ')}`}
+        className="h-28 w-full"
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={points} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+            <XAxis dataKey="date" hide />
+            {/* Zoomed to the range actually seen, so a small improvement is visible. */}
+            <YAxis domain={[Math.max(0, Math.min(first, last) - 15), 100]} hide />
+            <Tooltip
+              contentStyle={{ background: '#121821', border: '1px solid #1F2937', fontSize: 12 }}
+              formatter={(value) => [`${value}/100`, 'Score']}
+            />
+            <Line type="monotone" dataKey="score" stroke="#14b8a6" strokeWidth={2} dot />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

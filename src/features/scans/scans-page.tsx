@@ -9,6 +9,7 @@ import { PageHeader } from '@/components/ui/card';
 import { SEVERITIES, SeverityBadge } from '@/components/ui/severity';
 import { useScans } from '@/lib/api/hooks';
 import { formatTimestamp } from '@/lib/format';
+import { GradeChip } from './scan-insights';
 
 export function SeverityCounts({
   summary,
@@ -65,6 +66,7 @@ export function ScansPage() {
                 <thead>
                   <tr className={HEAD_ROW}>
                     <Th>Target</Th>
+                    <Th>Grade</Th>
                     <Th>Scanned (UTC)</Th>
                     <Th>Scanner</Th>
                     <Th>Findings</Th>
@@ -84,6 +86,9 @@ export function ScansPage() {
                         >
                           {scan.target}
                         </Link>
+                      </td>
+                      <td className="px-3 py-3">
+                        <GradeChip summary={scan.summary} />
                       </td>
                       <td className="whitespace-nowrap px-3 py-3 text-on-surface-variant">
                         {formatTimestamp(scan.finishedAt)}
