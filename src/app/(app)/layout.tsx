@@ -23,12 +23,12 @@ function Shell({ children }: { children: React.ReactNode }) {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-primary-container focus:px-3 focus:py-2 focus:text-on-primary-container"
+        className="sr-only print:hidden focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-primary-container focus:px-3 focus:py-2 focus:text-on-primary-container"
       >
         Skip to content
       </a>
       <Sidebar role={user?.role} open={navOpen} onClose={() => setNavOpen(false)} />
-      <div className="lg:pl-64">
+      <div className="lg:pl-64 print:pl-0">
         <Topbar onMenu={() => setNavOpen(true)} navOpen={navOpen} />
         <main id="main" className="px-4 pb-space-xl pt-space-md sm:px-space-xl">
           {children}

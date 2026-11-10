@@ -38,7 +38,7 @@ export function Sidebar({
       <aside
         id="main-nav"
         className={cn(
-          'fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-outline-variant/30 bg-background transition-transform lg:translate-x-0',
+          'fixed left-0 top-0 z-40 print:hidden flex h-screen w-64 flex-col border-r border-outline-variant/30 bg-background transition-transform lg:translate-x-0',
           // closed on a phone: off-screen AND invisible, so keyboard and screen-reader users cannot reach it
           !open && 'max-lg:invisible max-lg:-translate-x-full',
         )}

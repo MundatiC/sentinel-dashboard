@@ -18,6 +18,17 @@ body {
   @apply outline-2 outline-offset-2 outline-primary;
 }
 
+/* PDF export: white paper and sensible margins; the app shell hides itself with `print:hidden`. */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+}
+
 /* Respect users who ask for less motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
