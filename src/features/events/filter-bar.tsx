@@ -18,7 +18,12 @@ import {
 function useTextFilter(value: string, onCommit: (v: string) => void) {
   const [local, setLocal] = useState(value);
   const debounced = useDebounced(local);
-  useEffect(() => setLocal(value), [value]);
+  // Follow the URL when it changes from elsewhere (adjusting state during render, not in an effect).
+  const [prevValue, setPrevValue] = useState(value);
+  if (value !== prevValue) {
+    setPrevValue(value);
+    setLocal(value);
+  }
   useEffect(() => {
     if (debounced !== value) onCommit(debounced.trim());
     // eslint-disable-next-line react-hooks/exhaustive-deps

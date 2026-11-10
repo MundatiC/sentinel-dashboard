@@ -1,10 +1,8 @@
-import { FlatCompat } from '@eslint/eslintrc';
 import prettier from 'eslint-config-prettier';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import coreWebVitals from 'eslint-config-next/core-web-vitals';
+import nextTypescript from 'eslint-config-next/typescript';
 
-const compat = new FlatCompat({ baseDirectory: dirname(fileURLToPath(import.meta.url)) });
-
+// eslint-config-next 16 ships native flat configs, so no compatibility layer is needed.
 const config = [
   {
     ignores: [
@@ -12,12 +10,14 @@ const config = [
       'node_modules',
       'coverage',
       'design',
+      'sentinel-api',
       'next-env.d.ts',
       'playwright-report',
       'test-results',
     ],
   },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...coreWebVitals,
+  ...nextTypescript,
   prettier,
 ];
 
