@@ -4,9 +4,9 @@ Web dashboard for **Sentinel**, the self-hostable security monitoring platform: 
 timelines, scan reports and administration.
 Part of the suite: [sentinel-api](https://github.com/MundatiC/sentinel-api) · [sentinel-scanner](https://github.com/MundatiC/sentinel-scanner).
 
-**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · TanStack Query · Recharts · Vitest + Testing Library · Playwright + axe.
+**Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS · TanStack Query · Recharts · Vitest + Testing Library · Playwright + axe.
 
-![Overview](docs/screenshots/overview.png)
+![Overview](docs/screenshots/overview.jpg)
 
 ## Features
 
@@ -26,12 +26,17 @@ Role-aware: viewers read, analysts triage and run incidents, admins manage users
 
 <details><summary>More screenshots</summary>
 
-|                                                   |                                                  |
-| ------------------------------------------------- | ------------------------------------------------ |
-| ![Events](docs/screenshots/events.png)            | ![Alert](docs/screenshots/alert-detail.png)      |
-| ![Incident](docs/screenshots/incident-detail.png) | ![Scan report](docs/screenshots/scan-report.png) |
-| ![Rules](docs/screenshots/alert-rules.png)        | ![API keys](docs/screenshots/api-keys.png)       |
-| ![Sign in](docs/screenshots/sign-in.png)          |                                                  |
+|                                                         |                                                     |
+| ------------------------------------------------------- | --------------------------------------------------- |
+| ![Alerts](docs/screenshots/alerts.jpg)                  | ![Events](docs/screenshots/events.jpg)              |
+| ![Alert](docs/screenshots/alert-detail.png)             | ![Incident](docs/screenshots/incident-detail.jpg)   |
+| ![Scans](docs/screenshots/scans.jpg)                    | ![Scan report](docs/screenshots/scan-report.jpg)    |
+| ![Fix snippets](docs/screenshots/scan-fix-snippets.jpg) | ![PDF report](docs/screenshots/scan-pdf-report.jpg) |
+| ![Rules](docs/screenshots/alert-rules.png)              |                                                     |
+| ![Sign in](docs/screenshots/sign-in.png)                |                                                     |
+
+The PDF report is the print layout of a scan ("Export PDF" > Save as PDF). The data is the built-in demo seed
+(`npm run db:seed:demo` in sentinel-api), which uses reserved `*.demo.example` domains and documentation-range IPs.
 
 </details>
 
