@@ -103,9 +103,13 @@ export function ScanPrint({
                 <p className="mt-1 font-mono text-[9pt]">{neutralFix(f.checkId)}</p>
               )}
               {f.references.length > 0 && (
-                <p className="mt-1 break-all text-[9pt] text-gray-600">
-                  {f.references.join('  ·  ')}
-                </p>
+                <ul className="mt-1 text-[9pt] text-gray-600">
+                  {f.references.map((r) => (
+                    <li key={r} className="[overflow-wrap:anywhere]">
+                      {r}
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
           ))}
