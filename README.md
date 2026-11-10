@@ -32,8 +32,8 @@ Role-aware: viewers read, analysts triage and run incidents, admins manage users
 | ![Alert](docs/screenshots/alert-detail.png)             | ![Incident](docs/screenshots/incident-detail.jpg)   |
 | ![Scans](docs/screenshots/scans.jpg)                    | ![Scan report](docs/screenshots/scan-report.jpg)    |
 | ![Fix snippets](docs/screenshots/scan-fix-snippets.jpg) | ![PDF report](docs/screenshots/scan-pdf-report.jpg) |
-| ![Rules](docs/screenshots/alert-rules.png)              |                                                     |
-| ![Sign in](docs/screenshots/sign-in.png)                |                                                     |
+| ![Rules](docs/screenshots/alert-rules.jpg)              | ![API keys](docs/screenshots/api-keys.jpg)          |
+| ![Users](docs/screenshots/users.jpg)                    | ![Sign in](docs/screenshots/sign-in.png)            |
 
 The PDF report is the print layout of a scan ("Export PDF" > Save as PDF). The data is the built-in demo seed
 (`npm run db:seed:demo` in sentinel-api), which uses reserved `*.demo.example` domains and documentation-range IPs.
