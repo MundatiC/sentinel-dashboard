@@ -9,6 +9,7 @@ import { SEVERITIES, SeverityBadge } from '@/components/ui/severity';
 import { useScan, useScanHistory } from '@/lib/api/hooks';
 import type { ApiFinding, ScanCategory } from '@/lib/api/schemas';
 import { formatTimestamp } from '@/lib/format';
+import { FixSnippetsPanel } from './fix-snippets-panel';
 import { ScanInsights } from './scan-insights';
 import { ScanPrint } from './scan-print';
 import { SeverityCounts } from './scans-page';
@@ -73,6 +74,7 @@ function Finding({ finding }: { finding: ApiFinding }) {
           <p className="mb-1 text-label-default text-primary">Recommended remediation</p>
           <p className="whitespace-pre-wrap break-words text-body-default">{finding.remediation}</p>
         </div>
+        <FixSnippetsPanel checkId={finding.checkId} />
         {finding.references.length > 0 && (
           <div>
             <p className="mb-1 text-label-default text-on-surface-variant">References</p>

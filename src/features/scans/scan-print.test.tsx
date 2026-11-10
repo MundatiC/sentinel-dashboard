@@ -41,6 +41,15 @@ describe('ScanPrint', () => {
     expect(screen.getByText(/not a penetration test/)).toBeInTheDocument();
   });
 
+  it('adds a platform-neutral header line to header findings', () => {
+    render(<ScanPrint scan={scan} />);
+    expect(
+      screen.getByText(
+        'Add this response header: Strict-Transport-Security: max-age=31536000; includeSubDomains',
+      ),
+    ).toBeInTheDocument();
+  });
+
   it('lists the worst non-info findings under "Fix first"', () => {
     render(<ScanPrint scan={scan} />);
     const list = screen.getByRole('heading', { name: 'Fix first' }).nextElementSibling;
