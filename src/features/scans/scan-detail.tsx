@@ -29,7 +29,10 @@ const CATEGORY_ORDER: ScanCategory[] = [
   'EXPOSED_FILES',
 ];
 
-/** Group findings by category (stable order) and sort each group worst-first. */
+/**
+ * Group findings by category and sort each group worst-first. The group holding the worst finding
+ * comes first (a critical exposed .env must not sit below the header advice); ties keep a fixed order.
+ */
 export function groupFindings(findings: ApiFinding[]) {
   const rank = (f: ApiFinding) => SEVERITIES.indexOf(f.severity);
   return CATEGORY_ORDER.map((category) => ({
@@ -37,7 +40,13 @@ export function groupFindings(findings: ApiFinding[]) {
     findings: findings
       .filter((f) => f.category === category)
       .sort((a, b) => rank(a) - rank(b) || a.title.localeCompare(b.title)),
-  })).filter((g) => g.findings.length > 0);
+  }))
+    .filter((g) => g.findings.length > 0)
+    .sort(
+      (a, b) =>
+        rank(a.findings[0]!) - rank(b.findings[0]!) ||
+        CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category),
+    );
 }
 
 function Finding({ finding }: { finding: ApiFinding }) {
