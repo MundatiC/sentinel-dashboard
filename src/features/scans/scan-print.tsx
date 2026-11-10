@@ -3,6 +3,7 @@ import { gradeOf, scoreOf } from '@/lib/grade';
 import type { ApiFinding } from '@/lib/api/schemas';
 import { formatTimestamp } from '@/lib/format';
 import { diffFindings } from '@/lib/scan-diff';
+import { neutralFix } from './fix-snippets';
 import { CATEGORY_LABEL, groupFindings } from './scan-detail';
 
 type PrintScan = {
@@ -98,6 +99,9 @@ export function ScanPrint({
               <p className="mt-1">
                 <strong>Fix:</strong> <span className="whitespace-pre-wrap">{f.remediation}</span>
               </p>
+              {neutralFix(f.checkId) && (
+                <p className="mt-1 font-mono text-[9pt]">{neutralFix(f.checkId)}</p>
+              )}
               {f.references.length > 0 && (
                 <p className="mt-1 break-all text-[9pt] text-gray-600">
                   {f.references.join('  ·  ')}
