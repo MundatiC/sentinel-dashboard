@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Topbar } from '@/components/layout/topbar';
@@ -13,7 +13,12 @@ function Shell({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const [navOpen, setNavOpen] = useState(false);
   const pathname = usePathname();
-  useEffect(() => setNavOpen(false), [pathname]); // close the drawer after navigating
+  // Close the drawer after navigating. Adjusting state during render (not in an effect) avoids an extra render.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setNavOpen(false);
+  }
   return (
     <>
       <a
