@@ -10,6 +10,7 @@ const config = [
       'node_modules',
       'coverage',
       'design',
+      'sentinel-api',
       'next-env.d.ts',
       'playwright-report',
       'test-results',
