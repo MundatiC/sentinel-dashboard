@@ -90,11 +90,7 @@ export function UsersPage() {
                           </select>
                         </td>
                         <td className="px-3 py-3">
-                          <StatusBadge
-                            status={u.isActive ? 'RESOLVED' : 'OPEN'}
-                            className="[&]:capitalize"
-                          />
-                          <span className="sr-only">{u.isActive ? ' active' : ' deactivated'}</span>
+                          <StatusBadge status={u.isActive ? 'ACTIVE' : 'DEACTIVATED'} />
                         </td>
                         <td
                           className="whitespace-nowrap px-3 py-3 text-on-surface-variant"

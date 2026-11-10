@@ -96,14 +96,24 @@ describe('groupFindings', () => {
     references: [],
     ...over,
   });
-  it('groups by category in a fixed order, worst first, and drops empty categories', () => {
+  it('puts the category with the worst finding first, worst first inside each, and drops empty ones', () => {
     const groups = groupFindings([
       f({ category: 'TLS', severity: 'MEDIUM' }),
       f({ category: 'HEADERS', severity: 'LOW', title: 'b' }),
       f({ category: 'HEADERS', severity: 'CRITICAL', title: 'a' }),
       f({ category: 'DEPENDENCIES', severity: 'HIGH' }),
     ]);
-    expect(groups.map((g) => g.category)).toEqual(['DEPENDENCIES', 'HEADERS', 'TLS']);
-    expect(groups[1]!.findings.map((x) => x.severity)).toEqual(['CRITICAL', 'LOW']);
+    // HEADERS holds the critical finding, then DEPENDENCIES (high), then TLS (medium)
+    expect(groups.map((g) => g.category)).toEqual(['HEADERS', 'DEPENDENCIES', 'TLS']);
+    expect(groups[0]!.findings.map((x) => x.severity)).toEqual(['CRITICAL', 'LOW']);
+  });
+
+  it('keeps the fixed category order when the worst severities tie', () => {
+    const groups = groupFindings([
+      f({ category: 'TLS', severity: 'MEDIUM' }),
+      f({ category: 'COOKIES', severity: 'MEDIUM' }),
+      f({ category: 'HEADERS', severity: 'MEDIUM' }),
+    ]);
+    expect(groups.map((g) => g.category)).toEqual(['HEADERS', 'COOKIES', 'TLS']);
   });
 });

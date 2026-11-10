@@ -248,14 +248,7 @@ export function ApiKeysPage() {
                         {k.lastUsedAt ? relativeTime(k.lastUsedAt) : 'never'}
                       </td>
                       <td className="px-3 py-3">
-                        <StatusBadge
-                          status={state === 'Active' ? 'RESOLVED' : 'OPEN'}
-                          className="[&]:normal-case"
-                        />
-                        <span className="sr-only"> {state}</span>
-                        {state !== 'Active' && (
-                          <span className="ml-2 text-on-surface-variant">{state}</span>
-                        )}
+                        <StatusBadge status={state.toUpperCase()} />
                       </td>
                       <td className="px-3 py-3 text-right">
                         {state === 'Active' &&
