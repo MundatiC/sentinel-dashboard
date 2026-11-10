@@ -207,10 +207,24 @@ export function useScans(page: number, pageSize: number) {
   });
 }
 
-export function useScan(id: string) {
+export function useScan(id: string | undefined) {
   return useQuery({
     queryKey: ['scan', id],
     queryFn: ({ signal }) =>
       apiFetch(`/scans/${id}`, { schema: scanDetailSchema, signal }).then((r) => r.scan),
+    enabled: Boolean(id),
+  });
+}
+
+/** Past scans of one exact target, newest first (used for the trend and "since last scan"). */
+export function useScanHistory(target: string) {
+  return useQuery({
+    queryKey: ['scans', 'history', target],
+    queryFn: ({ signal }) =>
+      apiFetch('/scans', {
+        query: { target, page: 1, pageSize: 30 },
+        schema: scanListSchema,
+        signal,
+      }).then((r) => r.data),
   });
 }

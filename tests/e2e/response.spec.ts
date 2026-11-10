@@ -185,7 +185,7 @@ test.describe('scan reports', () => {
     await expect(page.getByRole('heading', { name: /Exposed files/ })).toBeVisible();
     await expect(page.getByRole('heading', { name: /Security headers/ })).toBeVisible();
 
-    await page.getByText('.git exposed').click(); // expands the <details>
+    await page.locator('summary', { hasText: '.git exposed' }).click(); // expands the <details>
     await expect(page.getByLabel('Evidence')).toContainText('/.git/HEAD');
     const ref = page.getByRole('link', { name: /owasp\.org/ });
     await expect(ref).toHaveAttribute('rel', 'noopener noreferrer');
