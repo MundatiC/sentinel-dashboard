@@ -69,7 +69,9 @@ export interface RequestOptions<T> {
 }
 
 function buildUrl(path: string, query?: RequestOptions<unknown>['query']) {
-  const url = new URL(`${API_BASE}${path}`);
+  // API_BASE is relative ("/api/v1") in same-origin proxy mode, and `new URL` rejects a relative string
+  // unless it has a base. The base is ignored when API_BASE is already absolute.
+  const url = new URL(`${API_BASE}${path}`, globalThis.location?.origin ?? 'http://localhost');
   for (const [key, value] of Object.entries(query ?? {})) {
     if (value !== undefined && value !== null && value !== '')
       url.searchParams.set(key, String(value));
