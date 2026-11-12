@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { connectSrc } from '@/lib/csp';
+import { vouchClientIp } from '@/lib/proxy-headers';
 
 // Per-request Content-Security-Policy with a nonce, so only scripts Next.js itself emits can run.
 // An injected <script> (XSS) has no nonce and is blocked by the browser.
@@ -25,6 +26,7 @@ export function middleware(request: NextRequest) {
   const headers = new Headers(request.headers);
   headers.set('x-nonce', nonce);
   headers.set('Content-Security-Policy', csp);
+  vouchClientIp(headers, request.nextUrl.pathname, process.env); // API-bound requests only
   const response = NextResponse.next({ request: { headers } });
   response.headers.set('Content-Security-Policy', csp);
   return response;
