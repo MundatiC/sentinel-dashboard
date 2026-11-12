@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { connectSrc } from '@/lib/csp';
 
 // Per-request Content-Security-Policy with a nonce, so only scripts Next.js itself emits can run.
 // An injected <script> (XSS) has no nonce and is blocked by the browser.
@@ -14,7 +15,7 @@ export function middleware(request: NextRequest) {
     "style-src 'self' 'unsafe-inline'", // Tailwind CSS is a file; React/Recharts set inline style attributes
     "img-src 'self' data: blob:",
     "font-src 'self'",
-    `connect-src 'self' ${apiUrl}`, // the browser talks to the API directly (REST + SSE)
+    `connect-src ${connectSrc(apiUrl)}`, // the API, directly or through this app's /api/v1 proxy (REST + SSE)
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",

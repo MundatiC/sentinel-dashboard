@@ -7,6 +7,9 @@ COPY . .
 # NEXT_PUBLIC_* values are compiled into the browser bundle, so they must be known at build time.
 ARG NEXT_PUBLIC_API_URL=http://localhost:4000
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+# Optional same-origin mode: build with --build-arg NEXT_PUBLIC_API_URL=/ --build-arg API_PROXY_TARGET=https://api.example.com
+ARG API_PROXY_TARGET=
+ENV API_PROXY_TARGET=$API_PROXY_TARGET
 RUN npm run build
 
 # ---- run ----
